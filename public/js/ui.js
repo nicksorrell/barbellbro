@@ -134,13 +134,25 @@ $(function(){
 
   function init(){
     barbellBro.loadSettings();
+
+    //Draw bar and bar stop to get them on screen
     imgObj = new Image();
     imgObj.src = 'img/bar.png';
     imgObj.onload = function(){
       ctx.drawImage( imgObj, 0, canvas.height/2 - 20, canvas.width*.9, 40 );
     }
 
+    imgObj2 = new Image();
+    imgObj2.src = 'img/barstop.png',
+    imgObj2.onload = function(){
+      ctx.drawImage( imgObj2, 5, canvas.height / 2 - (80 / 2), 30, 80 );
+    }
+
     $('.tableBox .label').append( " (" + (barbellBro.settings.weightSets[ barbellBro.settings.config.activeWeightSet ].type == "US" ? "lb" : "kg") + ")" );
+
+    //Set up UI with initial calculation of 0, then clear the input to show the PH text
+    updateDisplay(0);
+    $('input[name="weightInput"]').val('');
   }
 
   init();

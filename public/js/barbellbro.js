@@ -1,10 +1,11 @@
 var barbellBro = {
+  debugMode: true,
+
   settings: {
     config: {
         firstUse: 0,
         activeWeightSet: 0,
-        activeWeight: 0,
-        debugMode: true
+        activeWeight: 0
     },
 
     weightSets: [
@@ -28,7 +29,7 @@ var barbellBro = {
   },
 
   log: function(msg) {
-    if(this.settings.config.debugMode) {
+    if(this.debugMode) {
       console.log(msg);
     }
   },
