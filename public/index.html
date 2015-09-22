@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Barbell Bro</title>
+	<link rel="stylesheet" href="css/vendor/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="css/barbellbro.css">
+	<script src="js/vendor/jquery-1.11.3.min.js"></script>
+	<script src="js/vendor/jquery.mobile-1.4.5.min.js"></script>
+	<script src="js/barbellbro.js"></script>
+	<script src="js/ui.js"></script>
+</head>
+
+<body>
+
+<div data-role="page">
+
+	<div data-role="header">
+		<h1>Barbell Bro</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+
+		<div id="mainWeight">
+		  <canvas id="grafix" height="275">
+				[Graphics go here]
+			</canvas>
+			<div class="buttons padded">
+				<input type="tel" name="weightInput" placeholder="Enter a weight!">
+			  <p id="totalWeight"></p>
+			  <br/>
+				<div class="buttonBox">
+					<a href="#" class="ui-btn ui-btn-inline btn-bump" data-increment="5">5</a>
+					<!--span id="bumpWeight">5</span-->
+					<a href="#" class="ui-btn ui-btn-inline btn-bump" data-increment="-5">5</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="tableBox padded">
+			<p class="label">Weights Required</p>
+		  <table id="weightTable" cellspacing=0>
+				<tr></tr>
+		  </table>
+		</div>
+
+		<div class="buttonBox padded">
+			<p class="label">Warmup Sets</p>
+		  <a href="#" class="ui-btn ui-btn-inline ui-corner-all btn-warmup" data-percent="100">100%</a>
+		  <a href="#" class="ui-btn ui-btn-inline ui-corner-all btn-warmup" data-percent="75">75%</a>
+		  <a href="#" class="ui-btn ui-btn-inline ui-corner-all btn-warmup" data-percent="50">50%</a>
+		</div>
+
+	</div><!-- /content -->
+
+	<div data-role="footer">
+		<h4>Footer</h4>
+	</div><!-- /footer -->
+
+</div><!-- /page -->
+
+</body>
+</html>

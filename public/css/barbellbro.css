@@ -1,0 +1,128 @@
+html {
+  font-size: 16px;
+  font-family: sans-serif;
+}
+.btn-bump {
+  width: 25%;
+  margin: 0px 10px;
+}
+
+.btn-warmup, .btn-bump {
+
+}
+
+.buttonBox  {
+  text-align: center;
+}
+
+.buttonBox a{
+  border-radius: 5px;
+  border: 2px solid #fff;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+#totalWeight {
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+  margin: 0.5em;
+}
+
+#bumpWeight {
+  display: inline-block;
+  margin: 0;
+  text-align: center;
+}
+
+.btn-active {
+  background: #AEE6FF;
+  border: 3px solid #000;
+}
+
+#weightTable {
+  text-align:center;
+  width: 100%;
+  border: 1px solid #ccc;
+  margin: 1em 0;
+  table-layout: fixed;
+  font-size:0.75em;
+}
+
+#weightTable p {
+  margin: 0;
+  padding: 0.5em;
+}
+
+#weightTable p.heading {
+  color: #083CBD;
+  background: #eee;
+  border-bottom: 1px solid #ccc;
+  padding: 0.25em;
+}
+
+#weightTable th, #weightTable td {
+  border-right: 1px solid #ccc;
+}
+
+#weightTable th:last-child, #weightTable td:last-child {
+  border-right: none;
+}
+
+#weightTable td {
+  font-size: 1.5em;
+  padding: 0;
+}
+
+#weightTable td.inactive {
+  background: #D5DFE6;
+  color: #888;
+}
+
+#weightTable td.inactive .heading {
+  background: #76828A;
+  color: #DEDEDE;
+  text-shadow: none;
+}
+
+td.zero {
+  color: #aaa;
+}
+
+.label {
+  text-align: center;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  border-top: 1px solid #ddd;
+  padding-top: 1em;
+}
+
+#mainWeight {
+  /*height: 90vh;*/
+  background: url('../img/bg.png') center center;
+  background-size:cover;
+  padding-bottom: 1em;
+  border-bottom: 2px solid #202020;
+}
+
+#grafix {
+
+}
+
+#mainWeight input {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.25em;
+
+}
+
+.ui-content {
+  padding: 0;
+}
+
+.ui-header {
+  box-shadow: 0 2px 3px #000;
+}
+
+.padded {
+  padding: 0 1em;
+}
