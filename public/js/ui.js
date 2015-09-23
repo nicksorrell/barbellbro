@@ -62,11 +62,11 @@ $(function(){
 
             return function(){
               //ctx.drawImage( this, _drawCount*40, ((canvas.height/2)-(100 + _weightSize/2)), 35, 100 * (1 + _weightSize/100) );
-              ctx.drawImage( this, _drawCount*40 + ( i > 0 ? 35 : 0 ), canvas.height / 2 - ( 100 + canvas.height*( _weightSize/100 ) ) / 2 , 40, 100 + canvas.height * ( _weightSize/100 ) );
-              ctx.font = "20px Arial";
+              ctx.drawImage( this, _drawCount * 35 + ( i > 0 ? 35 : 0 ), canvas.height / 2 - ( 100 + canvas.height*( _weightSize/100 ) ) / 2 , 35, 100 + canvas.height * ( _weightSize/100 ) );
+              ctx.font = "18px Arial";
               ctx.fillStyle = "#FFF";
               ctx.textAlign = "center";
-              ctx.fillText( _weightSize, ( _drawCount * 40 ) + 20 + ( i > 0 ? 35 : 0 ), canvas.height / 2 + 5 );
+              ctx.fillText( _weightSize, ( _drawCount * 35 ) + 17.5 + ( i > 0 ? 35 : 0 ), canvas.height / 2 + 5 );
             };
           }();
 
@@ -134,18 +134,8 @@ $(function(){
 
   function init(){
     barbellBro.loadSettings();
+    if( !barbellBro.getSetting( 'firstUse' ) ) {
 
-    //Draw bar and bar stop to get them on screen
-    imgObj = new Image();
-    imgObj.src = 'img/bar.png';
-    imgObj.onload = function(){
-      ctx.drawImage( imgObj, 0, canvas.height/2 - 20, canvas.width*.9, 40 );
-    }
-
-    imgObj2 = new Image();
-    imgObj2.src = 'img/barstop.png',
-    imgObj2.onload = function(){
-      ctx.drawImage( imgObj2, 5, canvas.height / 2 - (80 / 2), 30, 80 );
     }
 
     $('.tableBox .label').append( " (" + (barbellBro.settings.weightSets[ barbellBro.settings.config.activeWeightSet ].type == "US" ? "lb" : "kg") + ")" );
