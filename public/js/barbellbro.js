@@ -19,7 +19,7 @@ var barbellBro = {
         name: "Olympic",
         type: "metric",
         weights: [ 25, 20, 15, 10, 5, 2.5, 2, 1.5, 1, 0.5 ],
-        weightStatus: [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ]
+        weightStatus: [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
       },
     ]
   },
@@ -110,6 +110,13 @@ var barbellBro = {
       this.log("Loading settings... " + this.settings);
     } else {
       this.log("No saved settings");
+    }
+  },
+
+  resetSettings: function(){
+    if(localStorage.getItem("barbellBroSettings") != null) {
+      localStorage.removeItem("barbellBroSettings");
+      this.log("All settings reverted to default");
     }
   }
 };

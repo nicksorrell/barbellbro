@@ -1,6 +1,6 @@
-html {
+body {
   font-size: 16px;
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .centered  {
@@ -11,7 +11,7 @@ html {
   padding: 0;
 }
 
-.btn-bump {
+.btn-bump, .btn-warmup {
   width: 100%;
 }
 
@@ -102,5 +102,25 @@ input.main {
 }
 
 .header, .footer {
-  background: #eee;
+  background: rgb(125,185,232);
+  background: -moz-linear-gradient(top, rgba(125,185,232,1) 0%, rgba(30,87,153,1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(125,185,232,1)), color-stop(100%,rgba(30,87,153,1)));
+  background: -webkit-linear-gradient(top, rgba(125,185,232,1) 0%,rgba(30,87,153,1) 100%);
+  background: -o-linear-gradient(top, rgba(125,185,232,1) 0%,rgba(30,87,153,1) 100%);
+  background: -ms-linear-gradient(top, rgba(125,185,232,1) 0%,rgba(30,87,153,1) 100%);
+  background: linear-gradient(to bottom, rgba(125,185,232,1) 0%,rgba(30,87,153,1) 100%);
+  border-bottom: 1px solid #222;
+  color:#fff;
+  text-shadow: 1px 1px 0px #000;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 1.75em;
+}
+
+.footer {
+  margin-top: 1em;
+  border-bottom: none;
+  border-top: 1px solid #888;
 }

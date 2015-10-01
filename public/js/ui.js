@@ -98,21 +98,21 @@ $(function(){
   $('#bumpWeight').html( activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] );
 
   //DO I NEED TO MAKE THIS ADJUST IF THE LOWEST WEIGHT IS TOGGLED OFF?
-  $('a.btn-bump').first().attr('data-increment', activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] * 2 ).html( "+" + activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] * 2 );
-  $('a.btn-bump').last().attr('data-increment', -( activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] * 2 ) ).html( -( activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] * 2 ) );
+  $('button.btn-bump').first().attr('data-increment', activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] * 2 ).html( "+" + activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] * 2 );
+  $('button.btn-bump').last().attr('data-increment', -( activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] * 2 ) ).html( -( activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] * 2 ) );
 
-  $('a.btn-warmup').on('click', function(){
+  $('button.btn-warmup').on('click', function(){
     if( $(this).data( 'percent' ) == "100") {
       updateDisplay( barbellBro.getSetting( 'activeWeight' ), false );
     } else {
       updateDisplay( barbellBro.getSetting( 'activeWeight' ) * ( $(this).data( 'percent' ) / 100 ), true );
     }
 
-    $('a.btn-warmup').removeClass('active');
+    $('button.btn-warmup').removeClass('active');
     $(this).addClass('active');
   });
 
-  $('a.btn-bump').on('click', function(){
+  $('button.btn-bump').on('click', function(){
     var activeWeight = barbellBro.getSetting( 'activeWeight' );
     updateDisplay( activeWeight += $(this).data( 'increment' ) );
   });
