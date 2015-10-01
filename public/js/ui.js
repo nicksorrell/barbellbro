@@ -108,8 +108,8 @@ $(function(){
       updateDisplay( barbellBro.getSetting( 'activeWeight' ) * ( $(this).data( 'percent' ) / 100 ), true );
     }
 
-    $('a.btn-warmup').removeClass('btn-active');
-    $(this).addClass('btn-active');
+    $('a.btn-warmup').removeClass('active');
+    $(this).addClass('active');
   });
 
   $('a.btn-bump').on('click', function(){
@@ -138,7 +138,7 @@ $(function(){
 
     }
 
-    $('.tableBox .label').append( " (" + (barbellBro.settings.weightSets[ barbellBro.settings.config.activeWeightSet ].type == "US" ? "lb" : "kg") + ")" );
+    $('.tableBox .metric').append( " (" + (barbellBro.settings.weightSets[ barbellBro.settings.config.activeWeightSet ].type == "US" ? "lb" : "kg") + ")" );
 
     //Set up UI with initial calculation of 0, then clear the input to show the PH text
     updateDisplay(0);

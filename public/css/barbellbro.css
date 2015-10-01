@@ -2,23 +2,17 @@ html {
   font-size: 16px;
   font-family: sans-serif;
 }
-.btn-bump {
-  width: 25%;
-  margin: 0px 10px;
-}
 
-.btn-warmup, .btn-bump {
-
-}
-
-.buttonBox  {
+.centered  {
   text-align: center;
 }
 
-.buttonBox a{
-  border-radius: 5px;
-  border: 2px solid #fff;
-  background: rgba(255, 255, 255, 0.5);
+.nopadding {
+  padding: 0;
+}
+
+.btn-bump {
+  width: 100%;
 }
 
 #totalWeight {
@@ -32,11 +26,6 @@ html {
   display: inline-block;
   margin: 0;
   text-align: center;
-}
-
-.btn-active {
-  background: #AEE6FF;
-  border: 3px solid #000;
 }
 
 #weightTable {
@@ -96,7 +85,7 @@ td.zero {
   padding-top: 1em;
 }
 
-#mainWeight {
+#weightDisplay {
   /*height: 90vh;*/
   background: url('../img/bg.png') center center;
   background-size:cover;
@@ -104,25 +93,14 @@ td.zero {
   border-bottom: 2px solid #202020;
 }
 
-#grafix {
 
-}
-
-#mainWeight input {
+input.main {
   text-align: center;
   font-weight: bold;
   font-size: 1.25em;
-
+  width: 100%;
 }
 
-.ui-content {
-  padding: 0;
-}
-
-.ui-header {
-  box-shadow: 0 2px 3px #000;
-}
-
-.padded {
-  padding: 0 1em;
+.header, .footer {
+  background: #eee;
 }

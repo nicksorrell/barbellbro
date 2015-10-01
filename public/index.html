@@ -4,61 +4,83 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Barbell Bro</title>
-
+	<link rel="stylesheet" href="css/vendor/bootstrap.css">
+	<link rel="stylesheet" href="css/vendor/bootstrap-theme.css">
 	<link rel="stylesheet" href="css/barbellbro.css">
-	<script src="js/vendor/jquery-1.11.3.min.js"></script>
-
+	<script src="js/vendor/jquery-2.1.4.js"></script>
+	<script src="js/vendor/bootstrap.js"></script>
 	<script src="js/barbellbro.js"></script>
 	<script src="js/ui.js"></script>
 </head>
 
 <body>
 
-<div id="main" data-role="page">
+<div id="main" class="container-fluid">
 
-	<div data-role="header">
-		<h1>Barbell Bro</h1>
-	</div><!-- /header -->
+	<!--header-->
+	<div class="row header">
+		<div class="col-xs-12">
+			<h1>Barbell Bro</h1>
+		</div>
+	</div>
+	<!--/header-->
 
-	<div role="main" class="ui-content">
-
-		<div id="mainWeight">
+	<!--Weight display-->
+	<div class="row" id="weightDisplay">
+		<div class="col-xs-12 nopadding">
 		  <canvas id="grafix" height="275">
 				[Graphics go here]
 			</canvas>
-			<div class="buttons padded">
-				<input type="tel" name="weightInput" placeholder="Enter a weight!">
-			  <p id="totalWeight"></p>
-			  <br/>
-				<div class="buttonBox">
-					<a href="#" class="ui-btn ui-btn-inline btn-bump" data-increment="5">5</a>
-					<!--span id="bumpWeight">5</span-->
-					<a href="#" class="ui-btn ui-btn-inline btn-bump" data-increment="-5">5</a>
-				</div>
+		</div>
+		<div class="col-xs-12 buttons">
+			<input type="tel" name="weightInput" placeholder="Enter a weight!" class="main">
+			<p id="totalWeight"></p>
+		</div>
+		<div class="col-xs-6">
+			<a href="#" class="btn btn-default btn-bump" data-increment="5">5</a>
+		</div>
+		<div class="col-xs-6">
+			<a href="#" class="btn btn-default btn-bump" data-increment="-5">5</a>
+		</div>
+	</div>
+	<!--/Weight display-->
+
+	<!--Weight table-->
+	<div class="row centered">
+		<div class="col-xs-12">
+			<h4 class="metric">Weights Required</h4>
+			<table id="weightTable" cellspacing=0>
+				<tr></tr>
+			</table>
+		</div>
+	</div>
+	<!--/Weight table-->
+
+	<!--warmup buttons-->
+		<div class="row centered">
+			<h4>Warmup Sets</h4>
+			<div class="col-xs-4">
+			  <a href="#" class="btn btn-default btn-warmup active" data-percent="100">100%</a>
+			</div>
+			<div class="col-xs-4">
+		  	<a href="#" class="btn btn-default btn-warmup" data-percent="75">75%</a>
+			</div>
+			<div class="col-xs-4">
+		  	<a href="#" class="btn btn-default btn-warmup" data-percent="50">50%</a>
 			</div>
 		</div>
+	<!--/warmup buttons-->
 
-		<div class="tableBox padded">
-			<p class="label">Weights Required</p>
-		  <table id="weightTable" cellspacing=0>
-				<tr></tr>
-		  </table>
+	<!-- footer -->
+	<div class="row footer">
+		<div class="col-xs-12">
+			<h4>Footer</h4>
 		</div>
+	</div>
+	<!-- /footer -->
 
-		<div class="buttonBox padded">
-			<p class="label">Warmup Sets</p>
-		  <a href="#" class="ui-btn ui-btn-inline ui-corner-all btn-warmup" data-percent="100">100%</a>
-		  <a href="#" class="ui-btn ui-btn-inline ui-corner-all btn-warmup" data-percent="75">75%</a>
-		  <a href="#" class="ui-btn ui-btn-inline ui-corner-all btn-warmup" data-percent="50">50%</a>
-		</div>
-
-	</div><!-- /content -->
-
-	<div data-role="footer">
-		<h4>Footer</h4>
-	</div><!-- /footer -->
-
-</div><!-- /page -->
+</div>
+<!-- /container -->
 
 </body>
 </html>
