@@ -117,6 +117,12 @@ $(function(){
     updateDisplay( activeWeight += $(this).data( 'increment' ) );
   });
 
+  $('input[name="weightInput"]').on('keydown', function(e){
+    if(event.keyCode < 48 || event.keyCode > 57){
+      e.preventDefault();
+    }
+  });
+
   $('input[name="weightInput"]').on('keyup', function(){
     updateDisplay( Number( $(this).val() ) );
   });
@@ -134,11 +140,11 @@ $(function(){
 
   function init(){
     barbellBro.loadSettings();
-    if( !barbellBro.getSetting( 'firstUse' ) ) {
-
+    if( barbellBro.getSetting( 'firstUse' ) ) {
+      //$('#firstUseModal').modal('show');
     }
 
-    $('.tableBox .metric').append( " (" + (barbellBro.settings.weightSets[ barbellBro.settings.config.activeWeightSet ].type == "US" ? "lb" : "kg") + ")" );
+    $('.metric').append( " (" + (barbellBro.settings.weightSets[ barbellBro.settings.config.activeWeightSet ].type == "US" ? "lb" : "kg") + ")" );
 
     //Set up UI with initial calculation of 0, then clear the input to show the PH text
     updateDisplay(0);

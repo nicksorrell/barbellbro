@@ -3,7 +3,7 @@ var barbellBro = {
 
   settings: {
     config: {
-        firstUse: 0,
+        firstUse: 1,
         activeWeightSet: 0,
         activeWeight: 0
     },

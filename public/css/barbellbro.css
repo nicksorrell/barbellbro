@@ -1,6 +1,11 @@
 body {
   font-size: 16px;
   font-family: 'Roboto', sans-serif;
+  background: rgba(30,87,153,1);
+}
+
+.container-fluid {
+  background: #fff;
 }
 
 .centered  {
@@ -33,6 +38,7 @@ body {
   width: 100%;
   border: 1px solid #ccc;
   margin: 1em 0;
+  margin-bottom: 2em;
   table-layout: fixed;
   font-size:0.75em;
 }
@@ -91,6 +97,7 @@ td.zero {
   background-size:cover;
   padding-bottom: 1em;
   border-bottom: 2px solid #202020;
+  margin-bottom: 0.5em;
 }
 
 
@@ -117,10 +124,17 @@ input.main {
 
 .header h1 {
   font-size: 1.75em;
+  margin-top: 0.25em;
+  text-transform: uppercase;
 }
 
 .footer {
-  margin-top: 1em;
+  margin-top: 2em;
   border-bottom: none;
   border-top: 1px solid #888;
+  padding: 1em 0;
+}
+
+.footer button {
+  width: 100%;
 }
