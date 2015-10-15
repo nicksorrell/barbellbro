@@ -141,7 +141,13 @@ $(function(){
   function init(){
     barbellBro.loadSettings();
     if( barbellBro.getSetting( 'firstUse' ) ) {
-      //$('#firstUseModal').modal('show');
+      $.ajax({
+        url: 'templates/first-use.html'
+      }).done(function(data){
+        $('#modal').html('');
+        $('#modal').append(data);
+        $('#modal').modal({ keyboard: false });
+      });
     }
 
     $('.metric').append( " (" + (barbellBro.settings.weightSets[ barbellBro.settings.config.activeWeightSet ].type == "US" ? "lb" : "kg") + ")" );
@@ -152,5 +158,19 @@ $(function(){
   }
 
   init();
+
+  window.showModal = function(target){
+    switch(target){
+      case 'firstUse':
+        break;
+      case 'none':
+        alert(barbellBro.getSetting( 'firstUse' ));
+        return false;
+        break;
+      default:
+        return false;
+        break;
+    }
+  }
 
 });

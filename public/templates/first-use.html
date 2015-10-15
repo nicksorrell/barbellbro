@@ -1,0 +1,24 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">First Time Setup</h4>
+    </div>
+    <div class="modal-body">
+      <p>Welcome! Let's take a moment to configure the app for your own use. It will only take a minute.</p>
+      <p>You can tell us which metric (lbs/kgs) you prefer, what weight of plates you have available, and configure your own set of plates if the default doesn't work for you.</p>
+      <p>Select <b class="text-primary">Quick Setup</b> to begin! Otherwise, select <b>Later</b>. You can always configure the app from the Settings menu.</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Later</button>
+      <button type="button" class="btn btn-primary">Quick Setup</button>
+    </div>
+    <script>
+      $('.btn-primary').on('click', function(){
+        $('#modal').modal('hide');
+        $('#modal').on('hidden.bs.modal', function(e){
+          showModal('none');
+        });
+      });
+    </script>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
