@@ -138,3 +138,9 @@ input.main {
 .footer button {
   width: 100%;
 }
+
+.modalContainer {
+  visibility: hidden;
+  display: none;
+  height: 0;
+}

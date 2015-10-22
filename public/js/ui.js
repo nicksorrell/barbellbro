@@ -141,13 +141,7 @@ $(function(){
   function init(){
     barbellBro.loadSettings();
     if( barbellBro.getSetting( 'firstUse' ) ) {
-      $.ajax({
-        url: 'templates/first-use.html'
-      }).done(function(data){
-        $('#modal').html('');
-        $('#modal').append(data);
-        $('#modal').modal({ keyboard: false });
-      });
+      showModal('first-use');
     }
 
     $('.metric').append( " (" + (barbellBro.settings.weightSets[ barbellBro.settings.config.activeWeightSet ].type == "US" ? "lb" : "kg") + ")" );
@@ -157,20 +151,31 @@ $(function(){
     $('input[name="weightInput"]').val('');
   }
 
-  init();
-
   window.showModal = function(target){
     switch(target){
-      case 'firstUse':
+      case 'first-use':
+        $.ajax({
+          url: 'templates/first-use.html'
+        }).done(function(data){
+          $('#modalContainer').html('');
+          $('#modalContainer').append(data);
+          $('#modal').modal({ keyboard: false, backdrop: 'static' });
+        });
         break;
-      case 'none':
-        alert(barbellBro.getSetting( 'firstUse' ));
-        return false;
+      case 'setup-metrics':
+        $.ajax({
+          url: 'templates/setup-metrics.html'
+        }).done(function(data){
+          $('#modalContainer').html('');
+          $('#modalContainer').append(data);
+          $('#modal').modal({ keyboard: false, backdrop: 'static' });
+        });
         break;
       default:
-        return false;
         break;
     }
   }
+
+  init();
 
 });
