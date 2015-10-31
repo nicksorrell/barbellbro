@@ -119,7 +119,7 @@ $(function(){
 
   $('input[name="weightInput"]').on('keydown', function(e){
     if(event.keyCode < 48 || event.keyCode > 57){
-      e.preventDefault();
+      //e.preventDefault();
     }
   });
 
@@ -152,29 +152,15 @@ $(function(){
   }
 
   window.showModal = function(target){
-    switch(target){
-      case 'first-use':
-        $.ajax({
-          url: 'templates/first-use.html'
-        }).done(function(data){
-          $('#modalContainer').html('');
-          $('#modalContainer').append(data);
-          $('#modal').modal({ keyboard: false, backdrop: 'static' });
-        });
-        break;
-      case 'setup-metrics':
-        $.ajax({
-          url: 'templates/setup-metrics.html'
-        }).done(function(data){
-          $('#modalContainer').html('');
-          $('#modalContainer').append(data);
-          $('#modal').modal({ keyboard: false, backdrop: 'static' });
-        });
-        break;
-      default:
-        break;
-    }
-  }
+    var modalTarget = 'templates/' + target + '.html';
+      $.ajax({
+        url: modalTarget
+      }).done(function(data){
+        $('#modalContainer').html('');
+        $('#modalContainer').append(data);
+        $('#modal').modal({ keyboard: false, backdrop: 'static' });
+      });
+  };
 
   init();
 

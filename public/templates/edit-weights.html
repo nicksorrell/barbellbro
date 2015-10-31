@@ -1,0 +1,25 @@
+<div id="modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">First Time Setup: Edit Weights</h4>
+      </div>
+      <div class="modal-body">
+        <p>Edit Weights</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Exit</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
+        <button type="button" class="btn btn-primary">Next</button>
+      </div>
+      <script>
+        $('.btn-primary').on('click', function(){
+          $('#modal').modal('hide');
+          $('#modal').on('hidden.bs.modal', function(e){
+            showModal('setup-metrics');
+          });
+        });
+      </script>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -11,13 +11,15 @@ var barbellBro = {
     weightSets: [
       {
         name: "Regular",
-        type: "US",
+        type: "Imperial",
+        isDefault: true,
         weights: [ 45, 35, 25, 10, 5, 2.5, 1, 0.5 ],
         weightStatus: [ 1, 1, 1, 1, 1, 1, 1, 1 ]
       },
       {
         name: "Olympic",
-        type: "metric",
+        type: "Metric",
+        isDefault: true,
         weights: [ 25, 20, 15, 10, 5, 2.5, 2, 1.5, 1, 0.5 ],
         weightStatus: [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
       },

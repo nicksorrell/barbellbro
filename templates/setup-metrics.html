@@ -2,7 +2,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">First Time Setup</h4>
+        <h4 class="modal-title">First Time Setup: Choose Metrics</h4>
       </div>
       <div class="modal-body">
         <p>Which units do you prefer to use?</p>
@@ -24,10 +24,23 @@
         <button type="button" class="btn btn-primary">Next</button>
       </div>
       <script>
+        $('input').first().prop('checked', true);
         $('.btn-primary').on('click', function(){
           var metricSelection = $('input[name="metric"]:checked').val();
-          //if lbs selected, show default lbss set confirm/edit screen
-          //otherwise, show default kgs set confirm/edit screen
+
+          if(metricSelection == 'lbs') {
+            barbellBro.setSetting('activeWeightSet', 0);
+            $('#modal').modal('hide');
+            $('#modal').on('hidden.bs.modal', function(e){
+              showModal('confirm-metrics');
+            });
+          } else {
+            barbellBro.setSetting('activeWeightSet', 1);
+            $('#modal').modal('hide');
+            $('#modal').on('hidden.bs.modal', function(e){
+              showModal('confirm-metrics');
+            });
+          }
         });
       </script>
     </div><!-- /.modal-content -->
