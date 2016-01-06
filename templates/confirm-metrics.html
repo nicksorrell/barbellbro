@@ -3,46 +3,44 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">First Time Setup</h4>
+        <h4 class="modal-title">First Time Setup: Confirm Weight Set</h4>
       </div>
       <div class="modal-body">
-        <p>The app will use these metrics. Is that OK?</p>
-        <p id="metric-choice"></p>
+        <p>Metrics confirmed! You chose <span id="confirmMetricChoice"></span> as your units. The default weight set for that is:</p>
+        <p id="confirmWeightList"></p>
+        <p>If this doesn't work for you, and you'd like to customize your own weight set, select the <b>Edit</b> button. Otherwise select the <b class="text-primary">Next</b> button to continue.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default">No</button>
-        <button type="button" class="btn btn-primary">Yes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Exit</button>
+        <button type="button" class="btn btn-default" data-target="back">Back</button>
+        <button type="button" class="btn btn-default" data-target="edit">Edit</button>
+        <button type="button" class="btn btn-primary" data-target="next">Next</button>
       </div>
       <script>
-        // Set the metric choice text to the user selection
-        if( barbellBro.getSetting('activeWeightSet') == 0 ) {
-          $('#metric-choice').html('<b>Imperial (e.g., 45 lbs, 35 lbs, 25 lbs ...)</b>');
-        } else {
-          $('#metric-choice').html('<b>Metric (e.g., 25 kgs, 20 kgs, 15 kgs ...)</b>');
+        $('#confirmMetricChoice').html( barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).type );
+
+        var confirmWeightList = "";
+
+        for(var i = 0; i < barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).weights.length; i++){
+          if(i < barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).weights.length - 1){
+              confirmWeightList += barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).weights[i] + ", ";
+          } else {
+            confirmWeightList += barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).weights[i];
+          }
         }
 
-        $('#metric-choice')
-        $('.btn-primary').on('click', function(){
-          var metricSelection = $('input[name="metric"]:checked').val();
+        $('#confirmWeightList').html(confirmWeightList);
 
-          // Set the active weight set based on the user selection
-          if(metricSelection = 'lbs') {
-            barbellBro.setSetting('activeWeightSet', 0);
-          } else {
-            barbellBro.setSetting('activeWeightSet', 1);
+        $('.btn').on('click', function(){
+          var targets = {
+            'back': 'setup-metrics',
+            'edit': 'edit-weights',
+            'next': 'ui-tour'
           }
-
-          // Load the metric confirmation screen
+          var targetModal = targets[$(this).data('target')];
           $('#modal').modal('hide');
           $('#modal').on('hidden.bs.modal', function(e){
-            showModal('confirm-metrics');
-          });
-        });
-
-        $('.btn-default').on('click', function(){
-          $('#modal').modal('hide');
-          $('#modal').on('hidden.bs.modal', function(e){
-            showModal('setup-metrics');
+            showModal(targetModal);
           });
         });
       </script>
