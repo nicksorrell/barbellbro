@@ -1,7 +1,21 @@
-$(function(){
+/*****
+ * FILE: ui.js
+ * ---
+ * This file defines all UI functionality for the app. The code is organized
+ * in three main sections:
+ *
+ * 1. The 'updateDisplay' function which is responsibile for rendering weights
+ *    on the canvas based on the results of the 'setWeight' app method.
+ * 2. The 'showModal' method attached the window, which is used to load
+ *    Bootstrap modals with AJAX for configuration screens.
+ * 3. The 'init' function which defines all UI event listeners and states.
+ *
+ * The init function is called after the window has fully loaded.
+ *****/
+
+$(function() {
+  // Define vars for canvas operations and the active weight set
   var activeWeightSet = barbellBro.getWeightSet( barbellBro.getSetting( 'activeWeightSet' ) ),
-      tempWeightSet = [],
-      weightStatus = 'on',
       canvas = document.getElementById('grafix'),
       ctx = canvas.getContext("2d"),
       weightImgs = [],
@@ -10,14 +24,28 @@ $(function(){
 
   canvas.width = window.innerWidth;
 
+  /*****
+  * FUNCTION: updateDisplay
+  * ---
+  * Parameters:
+  * - weight (Number): the target weight for which to do calculations
+  * - warmup (Boolean): whether the calculation is for a warmup percentage
+  *
+  * Returns:
+  * - undefined
+  *
+  * This function is primarily responsible for rendering calculated weights
+  * on the canvas. Data is received from the 'setWeight' method, and looped
+  * through to determine how to render weight graphics.
+  *****/
   function updateDisplay(weight, warmup){
     //if(weight < 45) weight = 45;
 
     var response = barbellBro.setWeight(weight, warmup),
-    theWeight = response.weight,
-    theResults = response.results,
-    weightTd,
-    weightTr;
+        theWeight = response.weight,
+        theResults = response.results,
+        weightTd,
+        weightTr;
 
 
     /*************
@@ -30,25 +58,28 @@ $(function(){
     grd.addColorStop(0,"#555");
     grd.addColorStop(1,"#ccc");
 
-    /*
-    ctx.fillStyle = grd;
-    ctx.fillRect( 0, 60, 300, 30);
-    */
+    drawCount = 0;
+    weightSize = 0;
 
     imgObj = new Image();
     imgObj.src = 'img/bar.png';
     imgObj.onload = function(){
       ctx.drawImage( imgObj, 0, canvas.height/2 - 20, canvas.width * 0.95, 40 );
+
+      imgObj2 = new Image();
+      imgObj2.src = 'img/barstop.png';
+      imgObj2.onload = function(){
+        ctx.drawImage( imgObj2, 5, canvas.height / 2 - (80 / 2), 30, 80 );
+      };
     };
 
-    imgObj2 = new Image();
-    imgObj2.src = 'img/barstop.png';
-    imgObj2.onload = function(){
-      ctx.drawImage( imgObj2, 5, canvas.height / 2 - (80 / 2), 30, 80 );
+    var imgMaker = function(img, drawCount, weightSize){
+        ctx.drawImage( img, drawCount * 35 + ( i > 0 ? 35 : 0 ), canvas.height / 2 - ( 100 + canvas.height*( weightSize/100 ) ) / 2 , 35, 100 + canvas.height * ( weightSize/100 ) );
+        ctx.font = "18px Arial";
+        ctx.fillStyle = "#FFF";
+        ctx.textAlign = "center";
+        ctx.fillText( weightSize, ( drawCount * 35 ) + 17.5 + ( i > 0 ? 35 : 0 ), canvas.height / 2 + 5 );
     };
-
-    drawCount = 0;
-    weightSize = 0;
 
     for(var i = 0; i < theResults.length; i++ ) {
       if(theResults[i] > 0) {
@@ -95,50 +126,21 @@ $(function(){
     $('#weightTable').append(weightTr);
   }
 
-  $('#bumpWeight').html( activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] );
+  window.showModal = function(target){
+    var urlString = 'templates/' + target + '.html';
 
-  //DO I NEED TO MAKE THIS ADJUST IF THE LOWEST WEIGHT IS TOGGLED OFF?
-  $('button.btn-bump').first().attr('data-increment', activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] * 2 ).html( "+" + activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] * 2 );
-  $('button.btn-bump').last().attr('data-increment', -( activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] * 2 ) ).html( -( activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] * 2 ) );
+    barbellBro.log("Attempting to load template: " + urlString);
 
-  $('button.btn-warmup').on('click', function(){
-    if( $(this).data( 'percent' ) == "100") {
-      updateDisplay( barbellBro.getSetting( 'activeWeight' ), false );
-    } else {
-      updateDisplay( barbellBro.getSetting( 'activeWeight' ) * ( $(this).data( 'percent' ) / 100 ), true );
-    }
+    $.ajax({
+      url: urlString
+    }).done(function(data){
+      $('#modalContainer').html('');
+      $('#modalContainer').append(data);
+      $('#modal').modal({ keyboard: false, backdrop: 'static' });
+    });
+  };
 
-    $('button.btn-warmup').removeClass('active');
-    $(this).addClass('active');
-  });
-
-  $('button.btn-bump').on('click', function(){
-    var activeWeight = barbellBro.getSetting( 'activeWeight' );
-    updateDisplay( activeWeight += $(this).data( 'increment' ) );
-  });
-
-  $('input[name="weightInput"]').on('keydown', function(e){
-    if(event.keyCode < 48 || event.keyCode > 57){
-      e.preventDefault();
-    }
-  });
-
-  $('input[name="weightInput"]').on('keyup', function(){
-    updateDisplay( Number( $(this).val() ) );
-  });
-
-  $('input').on('click', function(){
-    $(this).val("");
-  });
-
-  $('#weightTable').on('click', 'td', function(){
-    barbellBro.settings.weightSets[ barbellBro.settings.config.activeWeightSet ].weightStatus[ $(this).data('num') ] =
-      barbellBro.settings.weightSets[ barbellBro.settings.config.activeWeightSet ].weightStatus[ $(this).data('num') ] == 1 ? 0 : 1;
-
-    updateDisplay( Number( $('input[name="weightInput"]').val() ), barbellBro.session.warmup );
-  });
-
-  function init(){
+  function init() {
     barbellBro.loadSettings();
     if( barbellBro.getSetting( 'firstUse' ) ) {
       showModal('first-use');
@@ -149,41 +151,50 @@ $(function(){
     //Set up UI with initial calculation of 0, then clear the input to show the PH text
     updateDisplay(0);
     $('input[name="weightInput"]').val('');
-  }
 
-  window.showModal = function(target){
-    switch(target){
-      case 'first-use':
-        $.ajax({
-          url: 'templates/first-use.html'
-        }).done(function(data){
-          $('#modalContainer').html('');
-          $('#modalContainer').append(data);
-          $('#modal').modal({ keyboard: false, backdrop: 'static' });
-        });
-        break;
-      case 'setup-metrics':
-        $.ajax({
-          url: 'templates/setup-metrics.html'
-        }).done(function(data){
-          $('#modalContainer').html('');
-          $('#modalContainer').append(data);
-          $('#modal').modal({ keyboard: false, backdrop: 'static' });
-        });
-        break;
-      case 'confirm-metrics':
-        $.ajax({
-          url: 'templates/confirm-metrics.html'
-        }).done(function(data){
-          $('#modalContainer').html('');
-          $('#modalContainer').append(data);
-          $('#modal').modal({ keyboard: false, backdrop: 'static' });
-        });
-        break;
-      default:
-        break;
-    }
-  };
+    $('#bumpWeight').html( activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] );
+
+    //DO I NEED TO MAKE THIS ADJUST IF THE LOWEST WEIGHT IS TOGGLED OFF?
+    $('button.btn-bump').first().attr('data-increment', activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] * 2 ).html( "+" + activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] * 2 );
+    $('button.btn-bump').last().attr('data-increment', -( activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] * 2 ) ).html( -( activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] * 2 ) );
+
+    $('button.btn-warmup').on('click', function(){
+      if( $(this).data( 'percent' ) == "100") {
+        updateDisplay( barbellBro.getSetting( 'activeWeight' ), false );
+      } else {
+        updateDisplay( barbellBro.getSetting( 'activeWeight' ) * ( $(this).data( 'percent' ) / 100 ), true );
+      }
+
+      $('button.btn-warmup').removeClass('active');
+      $(this).addClass('active');
+    });
+
+    $('button.btn-bump').on('click', function(){
+      var activeWeight = barbellBro.getSetting( 'activeWeight' );
+      updateDisplay( activeWeight += $(this).data( 'increment' ) );
+    });
+
+    $('input[name="weightInput"]').on('keydown', function(e){
+      if(event.keyCode < 48 || event.keyCode > 57){
+        e.preventDefault();
+      }
+    });
+
+    $('input[name="weightInput"]').on('keyup', function(){
+      updateDisplay( Number( $(this).val() ) );
+    });
+
+    $('input').on('click', function(){
+      $(this).val("");
+    });
+
+    $('#weightTable').on('click', 'td', function(){
+      barbellBro.settings.weightSets[ barbellBro.settings.config.activeWeightSet ].weightStatus[ $(this).data('num') ] =
+        barbellBro.settings.weightSets[ barbellBro.settings.config.activeWeightSet ].weightStatus[ $(this).data('num') ] == 1 ? 0 : 1;
+
+      updateDisplay( Number( $('input[name="weightInput"]').val() ), barbellBro.session.warmup );
+    });
+  }
 
   init();
 

@@ -182,6 +182,9 @@ var barbellBro = {
   * - setting (String): the setting to look up
   * - value (String): the value to set the specified setting
   *
+  * Returns:
+  * - undefined
+  *
   * This function sets the config setting matching the 'setting' parameter to
   * the value in the 'value' parameter.
   *****/
@@ -191,16 +194,55 @@ var barbellBro = {
     }
   },
 
+  /*****
+  * FUNCTION: getWeightSet
+  * ---
+  * Parameters:
+  * - setNum (Number): the weight set to look up by number
+  *
+  * Returns:
+  * - The object for the weight set specified by the index of 'setNum'
+  *
+  * This function returns the weight set object within the weightSets array
+  * at the index specified by the 'setNum' paramater.
+  *****/
   getWeightSet: function(setNum){
     return this.settings.weightSets[Number(setNum)];
   },
 
+  /*****
+  * FUNCTION: saveSettings
+  * ---
+  * Parameters:
+  * - none
+  *
+  * Returns:
+  * - undefined
+  *
+  * This function saves the settings in the localStorage object if available.
+  *****/
   saveSettings: function() {
-    var settings = JSON.stringify(this.settings);
-    localStorage.setItem("barbellBroSettings", settings);
-    this.log("Saving settings... " + settings);
+    if(localStorage.getItem("barbellBroSettings") !== null) {
+      var settings = JSON.stringify(this.settings);
+      localStorage.setItem("barbellBroSettings", settings);
+      this.log("Saving settings... " + settings);
+    } else {
+      this.log("No localStorage available");
+    }
   },
 
+  /*****
+  * FUNCTION: loadSettings
+  * ---
+  * Parameters:
+  * - none
+  *
+  * Returns:
+  * - undefined
+  *
+  * This function loads the settings in the localStorage object, if it is
+  * available, and applies them to the app.
+  *****/
   loadSettings: function() {
     if(localStorage.getItem("barbellBroSettings") !== null) {
       this.settings = JSON.parse(localStorage.getItem("barbellBroSettings"));
@@ -210,6 +252,18 @@ var barbellBro = {
     }
   },
 
+  /*****
+  * FUNCTION: resetSettings
+  * ---
+  * Parameters:
+  * - none
+  *
+  * Returns:
+  * - undefined
+  *
+  * This function removes the settings object from localStorage, if available,
+  * so that the hard-coded defaults will be used.
+  *****/
   resetSettings: function(){
     if(localStorage.getItem("barbellBroSettings") !== null) {
       localStorage.removeItem("barbellBroSettings");
