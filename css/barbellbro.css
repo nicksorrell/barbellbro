@@ -144,3 +144,8 @@ input.main {
   display: none;
   height: 0;
 }
+
+#confirmWeightList {
+  font-size: 1.25em;
+  font-weight: bold;
+}
