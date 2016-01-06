@@ -18,8 +18,9 @@ $(function() {
   var activeWeightSet = barbellBro.getWeightSet( barbellBro.getSetting( 'activeWeightSet' ) ),
       canvas = document.getElementById('grafix'),
       ctx = canvas.getContext("2d"),
-      weightImgs = [],
-      imgObj, imgObj2,
+      weightImgObj = {},
+      barImgObj = {},
+      stopperImgObj = {},
       drawCount = 0;
 
   canvas.width = window.innerWidth;
@@ -51,6 +52,12 @@ $(function() {
     /*************
     * CANVAS STUFF (start)
     **************/
+    barImgObj = new Image();
+    barImgObj.src = 'img/bar.png';
+    stopperImgObj = new Image();
+    stopperImgObj.src = 'img/barstop.png';
+    weightImgObj = new Image();
+    weightImgObj.src = 'img/plate.png';
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -61,15 +68,17 @@ $(function() {
     drawCount = 0;
     weightSize = 0;
 
-    imgObj = new Image();
-    imgObj.src = 'img/bar.png';
-    imgObj.onload = function(){
-      ctx.drawImage( imgObj, 0, canvas.height/2 - 20, canvas.width * 0.95, 40 );
+    this.drawBar = function(){
+      barImgObj.onload = function(){
+        ctx.drawImage( barImgObj, 0, canvas.height/2 - 20, canvas.width * 0.95, 40 );
+        drawStopper();
+      };
+    };
 
-      imgObj2 = new Image();
-      imgObj2.src = 'img/barstop.png';
-      imgObj2.onload = function(){
-        ctx.drawImage( imgObj2, 5, canvas.height / 2 - (80 / 2), 30, 80 );
+    this.drawStopper = function(){
+      stopperImgObj.onload = function(){
+        ctx.drawImage( stopperImgObj, 5, canvas.height / 2 - (80 / 2), 30, 80 );
+        drawWeights();
       };
     };
 
@@ -81,30 +90,19 @@ $(function() {
         ctx.fillText( weightSize, ( drawCount * 35 ) + 17.5 + ( i > 0 ? 35 : 0 ), canvas.height / 2 + 5 );
     };
 
-    for(var i = 0; i < theResults.length; i++ ) {
-      if(theResults[i] > 0) {
-        weightSize = activeWeightSet.weights[i];
-        for(var j = 0; j < theResults[i]; j++){
-          weightImgs[drawCount] = new Image();
-          weightImgs[drawCount].src = 'img/plate.png';
-          weightImgs[drawCount].onload = function(){
-            var _drawCount = drawCount,
-                _weightSize = weightSize;
-
-            return function(){
-              //ctx.drawImage( this, _drawCount*40, ((canvas.height/2)-(100 + _weightSize/2)), 35, 100 * (1 + _weightSize/100) );
-              ctx.drawImage( this, _drawCount * 35 + ( i > 0 ? 35 : 0 ), canvas.height / 2 - ( 100 + canvas.height*( _weightSize/100 ) ) / 2 , 35, 100 + canvas.height * ( _weightSize/100 ) );
-              ctx.font = "18px Arial";
-              ctx.fillStyle = "#FFF";
-              ctx.textAlign = "center";
-              ctx.fillText( _weightSize, ( _drawCount * 35 ) + 17.5 + ( i > 0 ? 35 : 0 ), canvas.height / 2 + 5 );
-            };
-          }();
-
-          drawCount++;
+    this.drawWeights = function(){
+      for(var i = 0; i < theResults.length; i++ ) {
+        if(theResults[i] > 0) {
+          weightSize = activeWeightSet.weights[i];
+          for(var j = 0; j < theResults[i]; j++){
+            weightImgObj.onload = imgMaker(weightImgObj, drawCount, weightSize);
+            drawCount++;
+          }
         }
       }
-    }
+    };
+
+    drawBar();
 
     /*************
     * CANVAS STUFF (end)
