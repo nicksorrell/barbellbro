@@ -1,6 +1,21 @@
+/*****
+ * FILE: barbellbro.js
+ * ---
+ * This file defines the main app object. The app object contains all its
+ * functioanlity, such as configuration vars, getter and setter functions,
+ * and the main weight calculation function, 'calcWeight'.
+ *
+ * It is designed to work with external UI functionality that uses
+ * data returned from the 'calcWeight' function.
+ *****/
+
 var barbellBro = {
+  // Debug mode is used in the 'log' function to enable console logging.
   debugMode: true,
 
+  /* The settings object contains settings used during operation, such as
+   * the defined weight sets, and the active calculated weight.
+   */
   settings: {
     config: {
         firstUse: 1,
@@ -8,6 +23,16 @@ var barbellBro = {
         activeWeight: 0
     },
 
+    /* The weightSets array contains defined weight sets. The first two are
+     * the default sets.
+     *
+     * Weight sets have the following attributes:
+     * - Name (String): The name of the weight set
+     * - Type (String): Either US/Imperial or Metric
+     * - Weights (Array): The weights available in the set
+     * - WeightStatus (Array): The active state of each weight. This array
+     *   MUST be the same length as the weights array in the parent object.
+     */
     weightSets: [
       {
         name: "Regular",
@@ -24,19 +49,48 @@ var barbellBro = {
     ]
   },
 
+  /* The session object holds temporary data for operation, such as whether
+   * the user is viewing warmup weight values for their working weight or not.
+   */
   session: {
     warmup: false
   },
 
+  /*****
+  * FUNCTION: log
+  * ---
+  * Parameters:
+  * - msg (String): A message to be logged on the console
+  *
+  * Returns:
+  * - A call to console.log method passing the 'msg' parameter
+  *
+  * This function takes in a message string and logs it to the console if
+  * debug mode is active.
+  *****/
   log: function(msg) {
     if(this.debugMode) {
-      console.log(msg);
+      return console.log(msg);
     }
   },
 
+  /*****
+  * FUNCTION: setWeight
+  * ---
+  * Parameters:
+  * - weight (Number): the target weight for which to do calculations
+  * - warmup (Boolean): whether the calculation is for a warmup percentage
+  *   of the weight or not
+  *
+  * Returns:
+  * - a call to the 'calcWeight' function passing the 'weight' parameter
+  *
+  * This function first checks whether a warmup or working weight calculation
+  * is being made, then passes the weight value to the 'calcWeight' function
+  * for calculation.
+  *****/
   setWeight: function(weight, warmup) {
-    //save current weight value
-    if(warmup != true) {
+    if(warmup !== true) {
       this.session.warmup = false;
       this.log('Making working weight calculation...');
       this.settings.config.activeWeight = weight;
@@ -45,29 +99,47 @@ var barbellBro = {
       this.log('Making warmup calculation...');
     }
 
-    //and calculate the plate load
     return this.calcWeight(weight);
   },
 
+  /*****
+  * FUNCTION: calcWeight
+  * ---
+  * Parameters:
+  * - weight (Number): the target weight for which to calculate plate load.
+  *
+  * Returns:
+  * - An object containing the weight value and an array of numbers which
+  *   dictate how many plates to use
+  *
+  * This function takes a target weight and calculates the number of plates
+  * to use based on the available active weights in the current active weight
+  * set, e.g., # of 45's required to get as close to the target as possible,
+  * then the number of 35's required, etc. down the list.
+  *****/
   calcWeight: function(weight) {
-    //See what type of weights we're dealing with
-    var startWeight = (this.settings.weightSets[ this.settings.config.activeWeightSet ].type == "US") ? ( ( weight - 45 ) / 2 ) : ( ( weight - 20 ) / 2 );
+    // Calculate the start weight based on metrics (lbs/kgs)
+    var startWeight = (this.settings.weightSets[ this.settings.config.activeWeightSet ].type == "US") ? ( ( weight - 45 ) / 2 ) : ( ( weight - 20 ) / 2 ),
         weightSet = this.settings.weightSets[ this.settings.config.activeWeightSet ].weights,
         originalWeight = startWeight,
         numWeights = 0,
         results = [];
 
+    // No need to do negative calculations.
     if (startWeight < 0 ) {
       startWeight = 0;
     }
 
-    this.log("Using weight set: '" + this.settings.weightSets[ this.settings.config.activeWeightSet ].name + "' (" + this.settings.weightSets[ this.settings.config.activeWeightSet ].type + ")" );
+    this.log("Using weight set: '" +
+      this.settings.weightSets[ this.settings.config.activeWeightSet ].name +
+      "' (" + this.settings.weightSets[ this.settings.config.activeWeightSet ].type + ")" );
     this.log("Calculating weight for: " + weight + " (" + startWeight + " is our target with plates for each side.)");
 
-    //look at each plate in the list
+    // Look at each plate in the active set.
     for( var i = 0; i < weightSet.length; i++ ) {
+      // If a weight is active...
       if(this.settings.weightSets[ this.settings.config.activeWeightSet ].weightStatus[i] == 1) {
-        //if we can get a whole number of a certain plate, put that number on
+        // ...and we can get a whole number of a certain plate, attach it.
         if( Math.floor( startWeight / weightSet[i] ) > 0 ) {
           this.log( weightSet[i] + ": " + Math.floor( startWeight / weightSet[i] ) );
           results.push( Math.floor( startWeight / weightSet[i] ) );
@@ -75,23 +147,46 @@ var barbellBro = {
           this.log( weightSet[i] + ": " + Math.floor( startWeight / weightSet[i] ) );
           results.push( 0 );
         }
-        //remove that weight from the working total to figure out other plates
+        // Remove that weight from the working total to figure out others.
         startWeight -= Math.floor( startWeight / weightSet[i] ) * weightSet[i];
       } else {
         results.push( 0 );
       }
     }
-    //return an array that matches the current active one in length
-    return { weight: weight, results: results }
+    // Finally return the results in an object
+    return { weight: weight, results: results };
   },
 
+  /*****
+  * FUNCTION: getSetting
+  * ---
+  * Parameters:
+  * - setting (String): the setting to look up
+  *
+  * Returns:
+  * - The value of the referenced setting
+  *
+  * This function returns the config setting that matches the 'setting'
+  * parameter. Only looks in the 'config' object.
+  *****/
   getSetting: function(setting) {
     return this.settings.config[String(setting)];
   },
 
+  /*****
+  * FUNCTION: setSetting
+  * ---
+  * Parameters:
+  * - setting (String): the setting to look up
+  * - value (String): the value to set the specified setting
+  *
+  * This function sets the config setting matching the 'setting' parameter to
+  * the value in the 'value' parameter.
+  *****/
   setSetting: function(setting, value) {
-    if(this.settings.config[setting] != null && value != null)
+    if(this.settings.config[setting] !== null && value !== null) {
       this.settings.config[setting] = String(value);
+    }
   },
 
   getWeightSet: function(setNum){
@@ -105,7 +200,7 @@ var barbellBro = {
   },
 
   loadSettings: function() {
-    if(localStorage.getItem("barbellBroSettings") != null) {
+    if(localStorage.getItem("barbellBroSettings") !== null) {
       this.settings = JSON.parse(localStorage.getItem("barbellBroSettings"));
       this.log("Loading settings... " + this.settings);
     } else {
@@ -114,7 +209,7 @@ var barbellBro = {
   },
 
   resetSettings: function(){
-    if(localStorage.getItem("barbellBroSettings") != null) {
+    if(localStorage.getItem("barbellBroSettings") !== null) {
       localStorage.removeItem("barbellBroSettings");
       this.log("All settings reverted to default");
     }

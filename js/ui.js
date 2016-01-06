@@ -38,14 +38,14 @@ $(function(){
     imgObj = new Image();
     imgObj.src = 'img/bar.png';
     imgObj.onload = function(){
-      ctx.drawImage( imgObj, 0, canvas.height/2 - 20, canvas.width * .95, 40 );
-    }
+      ctx.drawImage( imgObj, 0, canvas.height/2 - 20, canvas.width * 0.95, 40 );
+    };
 
     imgObj2 = new Image();
-    imgObj2.src = 'img/barstop.png',
+    imgObj2.src = 'img/barstop.png';
     imgObj2.onload = function(){
       ctx.drawImage( imgObj2, 5, canvas.height / 2 - (80 / 2), 30, 80 );
-    }
+    };
 
     drawCount = 0;
     weightSize = 0;
@@ -83,8 +83,8 @@ $(function(){
     $('#weightTable').html("");
 
     weightTr = $('<tr>');
-    for (var i = 0; i < theResults.length; i++){
-      weightTd = (theResults[i] == 0) ?
+    for (i = 0; i < theResults.length; i++){
+      weightTd = (theResults[i] === 0) ?
         //TO DO: SEE ABOUT THE LINE BELOW ACTING WEIRD WITH THE GETTER
         $('<td class="zero ' + (barbellBro.settings.weightSets[ barbellBro.settings.config.activeWeightSet ].weightStatus[ i ] == 1 ? '' : 'inactive') + '" data-num="' + i + '">') :
         $('<td class="' + (activeWeightSet.weightStatus[ i ] == 1 ? '' : 'inactive') + '" data-num="' + i + '">');
@@ -171,10 +171,19 @@ $(function(){
           $('#modal').modal({ keyboard: false, backdrop: 'static' });
         });
         break;
+      case 'confirm-metrics':
+        $.ajax({
+          url: 'templates/confirm-metrics.html'
+        }).done(function(data){
+          $('#modalContainer').html('');
+          $('#modalContainer').append(data);
+          $('#modal').modal({ keyboard: false, backdrop: 'static' });
+        });
+        break;
       default:
         break;
     }
-  }
+  };
 
   init();
 
