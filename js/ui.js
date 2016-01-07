@@ -40,18 +40,22 @@ $(function() {
   * through to determine how to render weight graphics.
   *****/
   function updateDisplay(weight, warmup){
-    //if(weight < 45) weight = 45;
-
+    /* Define vars and get the weight calculations from 'setWeight' method.
+     * 'weightTd' and 'weightTr' are used to render the HTML table.
+     * 'drawCount' and 'weightSize' are used to loop through weights.
+     */
     var response = barbellBro.setWeight(weight, warmup),
         theWeight = response.weight,
         theResults = response.results,
         weightTd,
-        weightTr;
+        weightTr,
+        drawCount = 0,
+        weightSize = 0;
 
-
-    /*************
-    * CANVAS STUFF (start)
-    **************/
+    /*****
+    * NOTE: Canvas operations begin below
+    *****/
+    // Define images and sources upfront to prevent loading issues
     barImgObj = new Image();
     barImgObj.src = 'img/bar.png';
     stopperImgObj = new Image();
@@ -59,15 +63,26 @@ $(function() {
     weightImgObj = new Image();
     weightImgObj.src = 'img/plate.png';
 
+    // Clear the entire canvas so we can update it
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // TODO: Verify if this is necessary
     grd = ctx.createLinearGradient(0,90,0,60);
     grd.addColorStop(0,"#555");
     grd.addColorStop(1,"#ccc");
 
-    drawCount = 0;
-    weightSize = 0;
-
+    /*****
+    * INNER FUNCTION: drawBar
+    * ---
+    * Parameters:
+    * - none
+    *
+    * Returns:
+    * - undefined
+    *
+    * This function sets the 'onload' event for the weight bar image which
+    * draws it on the canvas before calling the function to draw the stopper.
+    *****/
     this.drawBar = function(){
       barImgObj.onload = function(){
         ctx.drawImage( barImgObj, 0, canvas.height/2 - 20, canvas.width * 0.95, 40 );
@@ -75,6 +90,18 @@ $(function() {
       };
     };
 
+    /*****
+    * INNER FUNCTION: drawStopper
+    * ---
+    * Parameters:
+    * - none
+    *
+    * Returns:
+    * - undefined
+    *
+    * This function sets the 'onload' event for the bar stopper image which
+    * draws it on the canvas before calling the function to draw the weights.
+    *****/
     this.drawStopper = function(){
       stopperImgObj.onload = function(){
         ctx.drawImage( stopperImgObj, 5, canvas.height / 2 - (80 / 2), 30, 80 );
@@ -82,7 +109,21 @@ $(function() {
       };
     };
 
-    var imgMaker = function(img, drawCount, weightSize){
+    /*****
+    * INNER FUNCTION: drawStopper
+    * ---
+    * Parameters:
+    * - img (Image): the Image to draw on the canvas
+    * - drawCount (Number): a counter used to position drawn weights
+    * - weightSize (Number): used to set the height of a drawn weight
+    *
+    * Returns:
+    * - undefined
+    *
+    * This function is called by 'drawWeights' to draw individual weights on
+    * the canvas as the weight results are looped through.
+    *****/
+    this.weightMaker = function(img, drawCount, weightSize){
         ctx.drawImage( img, drawCount * 35 + ( i > 0 ? 35 : 0 ), canvas.height / 2 - ( 100 + canvas.height*( weightSize/100 ) ) / 2 , 35, 100 + canvas.height * ( weightSize/100 ) );
         ctx.font = "18px Arial";
         ctx.fillStyle = "#FFF";
@@ -95,18 +136,18 @@ $(function() {
         if(theResults[i] > 0) {
           weightSize = activeWeightSet.weights[i];
           for(var j = 0; j < theResults[i]; j++){
-            weightImgObj.onload = imgMaker(weightImgObj, drawCount, weightSize);
+            weightImgObj.onload = weightMaker(weightImgObj, drawCount, weightSize);
             drawCount++;
           }
         }
       }
     };
 
+    // Start the drawing chain by drawing the bar on the canvas.
     drawBar();
-
-    /*************
-    * CANVAS STUFF (end)
-    **************/
+    /*****
+    * NOTE: Canvas operations end above
+    *****/
 
     $('input[name="weightInput"]').val( theWeight );
     $('#weightTable').html("");
