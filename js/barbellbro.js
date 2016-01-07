@@ -36,7 +36,7 @@ var barbellBro = {
     weightSets: [
       {
         name: "Regular",
-        type: "Imperial",
+        type: "US",
         isDefault: true,
         weights: [ 45, 35, 25, 10, 5, 2.5, 1, 0.5 ],
         weightStatus: [ 1, 1, 1, 1, 1, 1, 1, 1 ]
