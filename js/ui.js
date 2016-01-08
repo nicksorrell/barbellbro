@@ -63,14 +63,6 @@ $(function() {
     weightImgObj = new Image();
     weightImgObj.src = 'img/plate.png';
 
-    // Clear the entire canvas so we can update it
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // TODO: Verify if this is necessary
-    grd = ctx.createLinearGradient(0,90,0,60);
-    grd.addColorStop(0,"#555");
-    grd.addColorStop(1,"#ccc");
-
     /*****
     * INNER FUNCTION: drawBar
     * ---
@@ -143,6 +135,9 @@ $(function() {
       }
     };
 
+    // Clear the entire canvas so we can update it
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     // Start the drawing chain by drawing the bar on the canvas.
     drawBar();
 
@@ -164,7 +159,7 @@ $(function() {
      * and required to meet the weight load or not.
      */
     weightTr = $('<tr>');
-    
+
     for (i = 0; i < theResults.length; i++){
       weightTd = (theResults[i] === 0) ?
         // TODO: SEE ABOUT THE LOGIC BELOW ACTING WEIRD WITH THE GETTER
