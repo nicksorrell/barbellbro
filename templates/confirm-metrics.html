@@ -31,13 +31,19 @@
 
         $('#confirmWeightList').html(confirmWeightList);
 
+        var navTargets = {
+          'back': 'setup-metrics',
+          'edit': 'edit-weights',
+          'next': 'ui-tour'
+        }
+
         $('.btn').on('click', function(){
-          var targets = {
-            'back': 'setup-metrics',
-            'edit': 'edit-weights',
-            'next': 'ui-tour'
+          var targetModal = navTargets[$(this).data('target')];
+
+          if(targetModal == undefined) {
+            return;
           }
-          var targetModal = targets[$(this).data('target')];
+          
           $('#modal').modal('hide');
           $('#modal').on('hidden.bs.modal', function(e){
             showModal(targetModal);

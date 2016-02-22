@@ -9,14 +9,26 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Exit</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
-        <button type="button" class="btn btn-primary">Next</button>
+        <button type="button" class="btn btn-default" data-target="back">Back</button>
+        <button type="button" class="btn btn-primary" data-target="next">Next</button>
       </div>
       <script>
-        $('.btn-primary').on('click', function(){
+        var navTargets = {
+          'back': 'confirm-metrics',
+          'edit': 'edit-weights',
+          'next': 'ui-tour'
+        }
+
+        $('.btn').on('click', function(){
+          var targetModal = navTargets[$(this).data('target')];
+
+          if(targetModal == undefined) {
+            return;
+          }
+
           $('#modal').modal('hide');
           $('#modal').on('hidden.bs.modal', function(e){
-            showModal('setup-metrics');
+            showModal(targetModal);
           });
         });
       </script>
