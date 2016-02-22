@@ -17,7 +17,7 @@
       </div>
       <script>
         var confirmWeightList = "";
-        var customWeights = barbellBro.RAM.customWeights;
+        var customWeights = barbellBro.tempData.customWeights;
         var sortedCustomWeights = [];
 
         for(var weight in customWeights){
@@ -28,13 +28,13 @@
 
         sortedCustomWeights.sort(function(a, b){return b-a});
 
-        barbellBro.RAM.customWeights = sortedCustomWeights;
+        barbellBro.tempData.customWeights = sortedCustomWeights;
 
         for(var i = 0, j = sortedCustomWeights.length; i < j; i++) {
           if(i < sortedCustomWeights.length - 1){
-              confirmWeightList += sortedCustomWeights[i] + ", ";
+            confirmWeightList += sortedCustomWeights[i] + ", ";
           } else {
-            confirmWeightList += sortedCustomWeights[i];
+            confirmWeightList += sortedCustomWeights[i] + " " + barbellBro.getSetting('metric');
           }
         }
 

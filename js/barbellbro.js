@@ -13,7 +13,7 @@ var barbellBro = {
   // Debug mode is used in the 'log' function to enable console logging.
   debugMode: true,
 
-  RAM: {},
+  tempData: {},
 
   /* The settings object contains settings used during operation, such as
    * the defined weight sets, and the active calculated weight.
@@ -45,7 +45,7 @@ var barbellBro = {
       },
       {
         name: "Olympic",
-        type: "Metric",
+        type: "metric",
         weights: [ 25, 20, 15, 10, 5, 2.5, 2, 1.5, 1, 0.5 ],
         weightStatus: [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
       },

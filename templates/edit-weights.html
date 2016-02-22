@@ -43,7 +43,7 @@
               $(this).removeClass('selected');
               selectedCustomWeights[$(this).data('weight')].selected = false;
             }
-            barbellBro.RAM.customWeights = selectedCustomWeights;
+            barbellBro.tempData.customWeights = selectedCustomWeights;
           });
 
           $('#customWeights').append(customWeight);
