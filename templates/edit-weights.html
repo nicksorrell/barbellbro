@@ -2,10 +2,11 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">First Time Setup: Edit Weights</h4>
+        <h4 class="modal-title">Setup: Edit Weights</h4>
       </div>
       <div class="modal-body">
-        <p>Edit Weights</p>
+        <p>Let's customize your weight set. Select up to 10 available weight plates.</p>
+        <div id="customWeights"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Exit</button>
@@ -13,10 +14,54 @@
         <button type="button" class="btn btn-primary" data-target="next">Next</button>
       </div>
       <script>
+        var customWeights = [];
+
+        if(barbellBro.getSetting('metric') == 'lbs') {
+          customWeights = [55, 50, 45, 40, 35, 30, 25, 20, 15, 10, 5, 2.5, 1, 0.5, 0.25];
+        } else {
+          customWeights = [45, 40, 35, 30, 25, 20, 15, 10, 5, 2.5, 2, 1.5, 1, 0.5, 0.25];
+        }
+
+        var selectedCustomWeights = {};
+
+        for(var i = 0, j = customWeights.length; i < j; i++){
+          selectedCustomWeights[customWeights[i]] = { weight: customWeights[i], selected: false }
+          addCustomWeightBtn(customWeights[i]);
+        }
+
+        function addCustomWeightBtn(weight){
+          var customWeight = $('<button>');
+          customWeight.html(weight);
+          customWeight.addClass('customWeight btn btn-default');
+          customWeight.data('weight', weight);
+
+          customWeight.on('click', function(){
+            if(!selectedLimitReached()){
+              $(this).toggleClass('selected');
+              selectedCustomWeights[$(this).data('weight')].selected = (selectedCustomWeights[$(this).data('weight')].selected) ? false : true;
+            } else {
+              $(this).removeClass('selected');
+              selectedCustomWeights[$(this).data('weight')].selected = false;
+            }
+            barbellBro.RAM.customWeights = selectedCustomWeights;
+          });
+
+          $('#customWeights').append(customWeight);
+        }
+
+        function selectedLimitReached(){
+          var numSelected = 0;
+          for(var weight in selectedCustomWeights){
+            if(selectedCustomWeights[weight].selected == true) {
+              numSelected++;
+            }
+          }
+          return numSelected >= 10 ? true : false;
+        }
+
         var navTargets = {
           'back': 'confirm-metrics',
-          'edit': 'edit-weights',
-          'next': 'ui-tour'
+          'next': 'edit-weights-2'
         }
 
         $('.btn').on('click', function(){

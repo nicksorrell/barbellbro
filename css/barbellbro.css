@@ -161,3 +161,15 @@ input.main {
   font-size: 1.25em;
   font-weight: bold;
 }
+
+.customWeight {
+  width: 20%;
+  margin: 10px 5px;
+  color: #888;
+}
+
+.customWeight.selected {
+  font-weight: bold;
+  border: 1px solid #888;
+  color: #000;
+}

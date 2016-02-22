@@ -13,14 +13,17 @@ var barbellBro = {
   // Debug mode is used in the 'log' function to enable console logging.
   debugMode: true,
 
+  RAM: {},
+
   /* The settings object contains settings used during operation, such as
    * the defined weight sets, and the active calculated weight.
    */
   settings: {
     config: {
         firstUse: 1,
+        metric: 'lbs',
         activeWeightSet: 0,
-        activeWeight: 0
+        activeWeight: 0,
     },
 
     /* The weightSets array contains defined weight sets. The first two are
@@ -37,14 +40,12 @@ var barbellBro = {
       {
         name: "Regular",
         type: "US",
-        isDefault: true,
         weights: [ 45, 35, 25, 10, 5, 2.5, 1, 0.5 ],
         weightStatus: [ 1, 1, 1, 1, 1, 1, 1, 1 ]
       },
       {
         name: "Olympic",
         type: "Metric",
-        isDefault: true,
         weights: [ 25, 20, 15, 10, 5, 2.5, 2, 1.5, 1, 0.5 ],
         weightStatus: [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
       },

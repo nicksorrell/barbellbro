@@ -6,34 +6,42 @@
         <h4 class="modal-title">Setup: Confirm Weight Set</h4>
       </div>
       <div class="modal-body">
-        <p>Metrics confirmed! You chose <span id="confirmMetricChoice"></span> as your units. The default weight set for that is:</p>
+        <p>Weights confirmed! Your set looks like this:</p>
         <p id="confirmWeightList"></p>
-        <p>If this doesn't work for you, and you'd like to customize your own weight set, select the <b>Edit</b> button. Otherwise select the <b class="text-primary">Next</b> button to continue.</p>
+        <p>If you'd like to make changes, select the <b>Back</b> button. Otherwise select the <b class="text-primary">Next</b> button to add this set and continue.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Exit</button>
         <button type="button" class="btn btn-default" data-target="back">Back</button>
-        <button type="button" class="btn btn-default" data-target="edit">Edit</button>
         <button type="button" class="btn btn-primary" data-target="next">Next</button>
       </div>
       <script>
-        $('#confirmMetricChoice').html( barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).type );
-
         var confirmWeightList = "";
+        var customWeights = barbellBro.RAM.customWeights;
+        var sortedCustomWeights = [];
 
-        for(var i = 0; i < barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).weights.length; i++){
-          if(i < barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).weights.length - 1){
-              confirmWeightList += barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).weights[i] + ", ";
+        for(var weight in customWeights){
+          if(customWeights[weight].selected == true) {
+            sortedCustomWeights.push(customWeights[weight].weight);
+          }
+        }
+
+        sortedCustomWeights.sort(function(a, b){return b-a});
+
+        barbellBro.RAM.customWeights = sortedCustomWeights;
+
+        for(var i = 0, j = sortedCustomWeights.length; i < j; i++) {
+          if(i < sortedCustomWeights.length - 1){
+              confirmWeightList += sortedCustomWeights[i] + ", ";
           } else {
-            confirmWeightList += barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).weights[i];
+            confirmWeightList += sortedCustomWeights[i];
           }
         }
 
         $('#confirmWeightList').html(confirmWeightList);
 
         var navTargets = {
-          'back': 'setup-metrics',
-          'edit': 'edit-weights',
+          'back': 'edit-weights',
           'next': 'ui-tour'
         }
 

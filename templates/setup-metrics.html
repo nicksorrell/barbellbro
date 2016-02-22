@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">First Time Setup</h4>
+        <h4 class="modal-title">Setup: Metrics</h4>
       </div>
       <div class="modal-body">
         <p>Which units do you prefer to use?</p>
@@ -39,12 +39,13 @@
           if($(this).data('target') == 'next') {
             var metricSelection = 'lbs';
             metricSelection = $('input[name="metric"]:checked').val();
-            console.log('Selected metric: ' + metricSelection);
 
             // Set the active weight set based on the user selection
             if(metricSelection == 'lbs') {
+              barbellBro.setSetting('metric', 'lbs');
               barbellBro.setSetting('activeWeightSet', 0);
             } else {
+              barbellBro.setSetting('metric', 'kgs');
               barbellBro.setSetting('activeWeightSet', 1);
             }
           }
