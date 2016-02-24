@@ -3,41 +3,44 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Setup: Confirm Weight Set</h4>
+        <h4 class="modal-title">Setup: Weight Set Added</h4>
       </div>
       <div class="modal-body">
-        <p>Weights confirmed! Your set looks like this:</p>
-        <p id="confirmWeightList"></p>
-        <p>If you'd like to make changes, select the <b>Back</b> button. Otherwise select the <b class="text-primary">Next</b> button to save this set and continue.</p>
+        <p>Your custom weight set has been saved as:</p>
+        <p id="confirmWeightSet"></p>
+        <p>This set will now be active. You can change the active set from the Settings menu.</p>
+        <p>If you would like to take a UI tour, select the <b class="text-primary">Next</b> button. Otherwise select the <b>Exit</b> button to begin using the app.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn bb-nav btn-default" data-dismiss="modal">Exit</button>
-        <button type="button" class="btn bb-nav btn-default" data-target="back">Back</button>
         <button type="button" class="btn bb-nav btn-primary" data-target="next">Next</button>
       </div>
       <script>
-        var confirmWeightList = "";
         var customWeights = barbellBro.tempData.customWeights;
+        var weightSetMsg = "";
 
-        customWeights.sort(function(a, b){return b-a});
+        if(barbellBro.getSetting('metric') == 'lbs') {
+          barbellBro.settings.weightSets[2].weights = customWeights;
 
-        barbellBro.tempData.customWeights = customWeights;
-
-        for(var i = 0, j = customWeights.length; i < j; i++) {
-          if(i < customWeights.length - 1){
-            confirmWeightList += customWeights[i] + ", ";
-          } else {
-            confirmWeightList += customWeights[i];
+          for(var i = 0, j = customWeights.length; i < j; i++) {
+            barbellBro.settings.weightSets[2].weightStatus.push(1);
           }
+
+          weightSetMsg = "Regular (Custom)";
+        } else {
+          barbellBro.settings.weightSets[3].weights = customWeights;
+
+          for(var i = 0, j = customWeights.length; i < j; i++) {
+            barbellBro.settings.weightSets[3].weightStatus.push(1);
+          }
+
+          weightSetMsg = "Olympic (Custom)";
         }
 
-        confirmWeightList += '<span class="metricMsg">Weights in ' + (barbellBro.getSetting('metric') == 'lbs'  ? 'Lbs.' : 'Kgs.') + '</span>';
-
-        $('#confirmWeightList').html(confirmWeightList);
+        $('#confirmWeightSet').html(weightSetMsg);
 
         var navTargets = {
-          'back': 'edit-weights',
-          'next': 'edit-weights-confirm'
+          'next': 'ui-tour'
         }
 
         $('.btn.bb-nav').on('click', function(){

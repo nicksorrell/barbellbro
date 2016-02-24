@@ -239,7 +239,6 @@ $(function() {
     // Set the bump button values to the lowest weight in the set
     $('#bumpWeight').html( activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] );
 
-    // TODO: Determine whether this value should update to the lowest available weight.
     $('button.btn-bump').first().attr('data-increment', activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] * 2 ).html( "+" + activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] * 2 );
     $('button.btn-bump').last().attr('data-increment', -( activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] * 2 ) ).html( -( activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] * 2 ) );
 

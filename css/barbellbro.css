@@ -157,7 +157,7 @@ input.main {
   height: 0;
 }
 
-#confirmWeightList {
+#confirmWeightList, #confirmWeightSet {
   font-size: 1.25em;
   font-weight: bold;
 }
@@ -179,4 +179,12 @@ input.main {
   font-size: 0.75em;
   font-weight: normal;
   color: #999;
+  margin-top: 0.25em;
+}
+
+.weightSetNameMsg {
+  display: block;
+  font-size: 0.9em;
+  font-weight: normal;
+  margin-bottom: 0.25em;
 }

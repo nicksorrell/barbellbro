@@ -49,6 +49,18 @@ var barbellBro = {
         weights: [ 25, 20, 15, 10, 5, 2.5, 2, 1.5, 1, 0.5 ],
         weightStatus: [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
       },
+      {
+        name: "Regular (Custom)",
+        type: "US",
+        weights: [],
+        weightStatus: []
+      },
+      {
+        name: "Olympic (Custom)",
+        type: "metric",
+        weights: [],
+        weightStatus: []
+      }
     ]
   },
 

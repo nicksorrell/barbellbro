@@ -19,7 +19,7 @@
       <script>
         $('#confirmMetricChoice').html( barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).type );
 
-        var confirmWeightList = "";
+        var confirmWeightList = '<span class="weightSetNameMsg">' + (barbellBro.getSetting('metric') == 'lbs' ? barbellBro.settings.weightSets[0].name : barbellBro.settings.weightSets[1].name) + '</span>';
 
         for(var i = 0; i < barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).weights.length; i++){
           if(i < barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).weights.length - 1){
