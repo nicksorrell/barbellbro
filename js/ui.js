@@ -13,6 +13,11 @@
  * The init function is called after the window has fully loaded.
  *****/
 
+ /**
+  * TODO: Make all template scripts be part of one object in UI.js, with one method for each page's JS
+  * TODO: Make all templates be part of one JS object for efficiency?
+  */
+
 $(function() {
   // Define vars for canvas operations and the active weight set
   var activeWeightSet = barbellBro.getWeightSet( barbellBro.getSetting( 'activeWeightSet' ) ),

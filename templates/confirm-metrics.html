@@ -11,10 +11,10 @@
         <p>If this doesn't work for you, and you'd like to customize your own weight set, select the <b>Edit</b> button. Otherwise select the <b class="text-primary">Next</b> button to continue.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Exit</button>
-        <button type="button" class="btn btn-default" data-target="back">Back</button>
-        <button type="button" class="btn btn-default" data-target="edit">Edit</button>
-        <button type="button" class="btn btn-primary" data-target="next">Next</button>
+        <button type="button" class="btn bb-nav btn-default" data-dismiss="modal">Exit</button>
+        <button type="button" class="btn bb-nav btn-default" data-target="back">Back</button>
+        <button type="button" class="btn bb-nav btn-default" data-target="edit">Edit</button>
+        <button type="button" class="btn bb-nav btn-primary" data-target="next">Next</button>
       </div>
       <script>
         $('#confirmMetricChoice').html( barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).type );
@@ -23,11 +23,13 @@
 
         for(var i = 0; i < barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).weights.length; i++){
           if(i < barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).weights.length - 1){
-              confirmWeightList += barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).weights[i] + ", ";
+              confirmWeightList += barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).weights[i] + ",  ";
           } else {
-            confirmWeightList += barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).weights[i] + " " + barbellBro.getSetting('metric');
+            confirmWeightList += barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).weights[i];
           }
         }
+
+        confirmWeightList += '<span class="metricMsg">Weights in ' + (barbellBro.getSetting('metric') == 'lbs'  ? 'Lbs.' : 'Kgs.') + '</span>';
 
         $('#confirmWeightList').html(confirmWeightList);
 
@@ -37,7 +39,7 @@
           'next': 'ui-tour'
         }
 
-        $('.btn').on('click', function(){
+        $('.btn.bb-nav').on('click', function(){
           var targetModal = navTargets[$(this).data('target')];
 
           if(targetModal == undefined) {

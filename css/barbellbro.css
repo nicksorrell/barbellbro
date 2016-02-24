@@ -173,3 +173,10 @@ input.main {
   border: 1px solid #888;
   color: #000;
 }
+
+.metricMsg {
+  display: block;
+  font-size: 0.75em;
+  font-weight: normal;
+  color: #999;
+}

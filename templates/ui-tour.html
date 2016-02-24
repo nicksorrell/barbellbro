@@ -8,15 +8,15 @@
         <p>UI Tour</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Exit</button>
-        <button type="button" class="btn btn-primary" data-target="next">Next</button>
+        <button type="button" class="btn bb-nav btn-default" data-dismiss="modal">Exit</button>
+        <button type="button" class="btn bb-nav btn-primary" data-target="next">Next</button>
       </div>
       <script>
       var navTargets = {
         'next': 'setup-metrics'
       }
 
-      $('.btn').on('click', function(){
+      $('.btn.bb-nav').on('click', function(){
         var targetModal = navTargets[$(this).data('target')];
 
         if(targetModal == undefined) {

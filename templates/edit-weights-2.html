@@ -11,32 +11,27 @@
         <p>If you'd like to make changes, select the <b>Back</b> button. Otherwise select the <b class="text-primary">Next</b> button to add this set and continue.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Exit</button>
-        <button type="button" class="btn btn-default" data-target="back">Back</button>
-        <button type="button" class="btn btn-primary" data-target="next">Next</button>
+        <button type="button" class="btn bb-nav btn-default" data-dismiss="modal">Exit</button>
+        <button type="button" class="btn bb-nav btn-default" data-target="back">Back</button>
+        <button type="button" class="btn bb-nav btn-primary" data-target="next">Next</button>
       </div>
       <script>
         var confirmWeightList = "";
         var customWeights = barbellBro.tempData.customWeights;
-        var sortedCustomWeights = [];
 
-        for(var weight in customWeights){
-          if(customWeights[weight].selected == true) {
-            sortedCustomWeights.push(customWeights[weight].weight);
-          }
-        }
+        customWeights.sort(function(a, b){return b-a});
 
-        sortedCustomWeights.sort(function(a, b){return b-a});
+        barbellBro.tempData.customWeights = customWeights;
 
-        barbellBro.tempData.customWeights = sortedCustomWeights;
-
-        for(var i = 0, j = sortedCustomWeights.length; i < j; i++) {
-          if(i < sortedCustomWeights.length - 1){
-            confirmWeightList += sortedCustomWeights[i] + ", ";
+        for(var i = 0, j = customWeights.length; i < j; i++) {
+          if(i < customWeights.length - 1){
+            confirmWeightList += customWeights[i] + ", ";
           } else {
-            confirmWeightList += sortedCustomWeights[i] + " " + barbellBro.getSetting('metric');
+            confirmWeightList += customWeights[i];
           }
         }
+
+        confirmWeightList += '<span class="metricMsg">Weights in ' + (barbellBro.getSetting('metric') == 'lbs'  ? 'Lbs.' : 'Kgs.') + '</span>';
 
         $('#confirmWeightList').html(confirmWeightList);
 
@@ -45,7 +40,7 @@
           'next': 'ui-tour'
         }
 
-        $('.btn').on('click', function(){
+        $('.btn.bb-nav').on('click', function(){
           var targetModal = navTargets[$(this).data('target')];
 
           if(targetModal == undefined) {

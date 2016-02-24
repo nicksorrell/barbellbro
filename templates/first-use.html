@@ -11,15 +11,15 @@
         <p>Select <b class="text-primary">Quick Setup</b> to begin! Otherwise, select <b>Later</b>. You can always configure the app from the Settings menu.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Later</button>
-        <button type="button" class="btn btn-primary" data-target="next">Quick Setup</button>
+        <button type="button" class="btn bb-nav btn-default" data-dismiss="modal">Later</button>
+        <button type="button" class="btn bb-nav btn-primary" data-target="next">Quick Setup</button>
       </div>
       <script>
         var navTargets = {
           'next': 'setup-metrics'
         }
 
-        $('.btn').on('click', function(){
+        $('.btn.bb-nav').on('click', function(){
           var targetModal = navTargets[$(this).data('target')];
 
           if(targetModal == undefined) {

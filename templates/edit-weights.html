@@ -9,9 +9,9 @@
         <div id="customWeights"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Exit</button>
-        <button type="button" class="btn btn-default" data-target="back">Back</button>
-        <button type="button" class="btn btn-primary" data-target="next">Next</button>
+        <button type="button" class="btn bb-nav btn-default" data-dismiss="modal">Exit</button>
+        <button type="button" class="btn bb-nav btn-default" data-target="back">Back</button>
+        <button type="button" class="btn bb-nav btn-primary" data-target="next">Next</button>
       </div>
       <script>
         var customWeights = [];
@@ -35,28 +35,25 @@
           customWeight.addClass('customWeight btn btn-default');
           customWeight.data('weight', weight);
 
+          barbellBro.tempData.numWeightsSelected = 0;
+
           customWeight.on('click', function(){
             if(!selectedLimitReached()){
-              $(this).toggleClass('selected');
-              selectedCustomWeights[$(this).data('weight')].selected = (selectedCustomWeights[$(this).data('weight')].selected) ? false : true;
+              $(this).addClass('selected');
+              barbellBro.tempData.numWeightsSelected++;
             } else {
-              $(this).removeClass('selected');
-              selectedCustomWeights[$(this).data('weight')].selected = false;
+              if($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+                barbellBro.tempData.numWeightsSelected--;
+              }
             }
-            barbellBro.tempData.customWeights = selectedCustomWeights;
           });
 
           $('#customWeights').append(customWeight);
         }
 
         function selectedLimitReached(){
-          var numSelected = 0;
-          for(var weight in selectedCustomWeights){
-            if(selectedCustomWeights[weight].selected == true) {
-              numSelected++;
-            }
-          }
-          return numSelected >= 10 ? true : false;
+          return barbellBro.tempData.numWeightsSelected >= 10 ? true : false;
         }
 
         var navTargets = {
@@ -64,7 +61,14 @@
           'next': 'edit-weights-2'
         }
 
-        $('.btn').on('click', function(){
+        $('.btn.bb-nav').on('click', function(){
+          if($(this).data('target') == 'next'){
+            barbellBro.tempData.customWeights = [];
+
+            $.each( $('.customWeight.selected'), function(i, e){
+              barbellBro.tempData.customWeights.push($(e).data('weight'))
+            });
+          }
           var targetModal = navTargets[$(this).data('target')];
 
           if(targetModal == undefined) {
