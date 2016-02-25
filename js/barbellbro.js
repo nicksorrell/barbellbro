@@ -235,7 +235,7 @@ var barbellBro = {
   * This function saves the settings in the localStorage object if available.
   *****/
   saveSettings: function() {
-    if(localStorage.getItem("barbellBroSettings") !== null) {
+    if(window.localStorage !== undefined) {
       var settings = JSON.stringify(this.settings);
       localStorage.setItem("barbellBroSettings", settings);
       this.log("Saving settings... " + settings);

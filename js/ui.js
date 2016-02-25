@@ -20,7 +20,7 @@
 
 $(function() {
   // Define vars for canvas operations and the active weight set
-  var activeWeightSet = barbellBro.getWeightSet( barbellBro.getSetting( 'activeWeightSet' ) ),
+  var activeWeightSet = {},
       canvas = document.getElementById('grafix'),
       ctx = canvas.getContext("2d"),
       weightImgObj = {},
@@ -166,12 +166,12 @@ $(function() {
     weightTr = $('<tr>');
 
     for (i = 0; i < theResults.length; i++){
-      weightTd = (theResults[i] === 0) ?
-        // TODO: SEE ABOUT THE LOGIC BELOW ACTING WEIRD WITH THE GETTER
-        $('<td class="zero ' +
-        (barbellBro.settings.weightSets[ barbellBro.settings.config.activeWeightSet ].weightStatus[ i ] == 1 ? '' : 'inactive') +
-        '" data-num="' + i + '">') :
-        $('<td class="' + (activeWeightSet.weightStatus[ i ] == 1 ? '' : 'inactive') + '" data-num="' + i + '">');
+      if(theResults[i] === 0 ){
+        weightTd = $('<td class="zero ' + (activeWeightSet.weightStatus[i] == 1 ? '' : 'inactive') + '" data-num="' + i + '">');
+      } else {
+        weightTd = $('<td class="' + (activeWeightSet.weightStatus[i] == 1 ? '' : 'inactive') + '" data-num="' + i + '">');
+      }
+
       weightTd.append( '<p class="heading">' + activeWeightSet.weights[i] + '</p><p>' + theResults[i] +'</p>');
       weightTr.append( weightTd );
     }
@@ -225,12 +225,14 @@ $(function() {
     // Attempt to load saved settings to begin with.
     barbellBro.loadSettings();
 
+    activeWeightSet = barbellBro.getWeightSet( barbellBro.getSetting( 'activeWeightSet' ) );
+
     // If this is the users's first time in, display the first use modal
     if( barbellBro.getSetting( 'firstUse' ) ) {
       showModal('first-use');
     }
 
-    $('.metric').append( " (" + (barbellBro.settings.weightSets[ barbellBro.settings.config.activeWeightSet ].type == "US" ? "lb" : "kg") + ")" );
+    $('.metric').html( "Plates Per Side (" + (barbellBro.settings.weightSets[ barbellBro.settings.config.activeWeightSet ].type == "US" ? "lb" : "kg") + ")" );
 
     //Set up UI with initial calc 0, then clear the input to show the PH text
     updateDisplay(0);
@@ -289,6 +291,8 @@ $(function() {
       updateDisplay( Number( $('input[name="weightInput"]').val() ), barbellBro.session.warmup );
     });
   }
+
+  window.init = function(){ init(); };
 
   // Call the init function to kick everything off!
   init();
