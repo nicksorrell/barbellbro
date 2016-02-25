@@ -20,7 +20,7 @@ var barbellBro = {
    */
   settings: {
     config: {
-        firstUse: 1,
+        firstUse: true,
         metric: 'lbs',
         activeWeightSet: 0,
         activeWeight: 0,
@@ -221,6 +221,18 @@ var barbellBro = {
   *****/
   getWeightSet: function(setNum){
     return this.settings.weightSets[Number(setNum)];
+  },
+
+  /*****
+  * FUNCTION: saveWeightSet
+  *****/
+  saveCustomWeightSet: function(set, settings) {
+    if(set === 0 || set === 1) return;
+    var theSet = barbellBro.settings.weightSets[set];
+    if(theSet !== undefined) {
+      theSet.weights = settings.weights;
+      theSet.weightStatus = settings.weightStatus;
+    }
   },
 
   /*****

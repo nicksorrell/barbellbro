@@ -177,6 +177,16 @@ $(function() {
     }
 
     $('#weightTable').append(weightTr);
+
+    /* When a table cell in the weight list ic clicked, toggle the weight
+     * on/off and recalculate to figure out required plates.
+     */
+    $('#weightTable td').on('click', function(){
+      activeWeightSet.weightStatus[ $(this).data('num') ] =
+        activeWeightSet.weightStatus[ $(this).data('num') ] == 1 ? 0 : 1;
+
+      updateDisplay( Number( $('input[name="weightInput"]').val() ), barbellBro.session.warmup );
+    });
   }
 
   /*****
@@ -210,7 +220,7 @@ $(function() {
   * FUNCTION: init
   * ---
   * Parameters:
-  * - none
+  * - settings (Object): a settings object used to toggle behavior
   *
   * Returns:
   * - undefined
@@ -221,18 +231,18 @@ $(function() {
   * set and the display updated with a value of 0 to begin. All event
   * listeners are also setup when the function is called.
   *****/
-  function init() {
+  function init(settings) {
     // Attempt to load saved settings to begin with.
     barbellBro.loadSettings();
 
     activeWeightSet = barbellBro.getWeightSet( barbellBro.getSetting( 'activeWeightSet' ) );
 
     // If this is the users's first time in, display the first use modal
-    if( barbellBro.getSetting( 'firstUse' ) ) {
+    if( barbellBro.getSetting( 'firstUse' ) === true  && settings.modal === true) {
       showModal('first-use');
     }
 
-    $('.metric').html( "Plates Per Side (" + (barbellBro.settings.weightSets[ barbellBro.settings.config.activeWeightSet ].type == "US" ? "lb" : "kg") + ")" );
+    $('.metric').html( "Plates Per Side (" + (activeWeightSet.type == "US" ? "lb" : "kg") + ")" );
 
     //Set up UI with initial calc 0, then clear the input to show the PH text
     updateDisplay(0);
@@ -281,19 +291,11 @@ $(function() {
       updateDisplay( Number( $(this).val() ) );
     });
 
-    /* When a table cell in the weight list ic clicked, toggle the weight
-     * on/off and recalculate to figure out required plates.
-     */
-    $('#weightTable').on('click', 'td', function(){
-      barbellBro.settings.weightSets[ barbellBro.settings.config.activeWeightSet ].weightStatus[ $(this).data('num') ] =
-        barbellBro.settings.weightSets[ barbellBro.settings.config.activeWeightSet ].weightStatus[ $(this).data('num') ] == 1 ? 0 : 1;
 
-      updateDisplay( Number( $('input[name="weightInput"]').val() ), barbellBro.session.warmup );
-    });
   }
 
-  window.init = function(){ init(); };
+  window.init = function(settings){ init(settings); };
 
   // Call the init function to kick everything off!
-  init();
+  init({modal: true});
 });

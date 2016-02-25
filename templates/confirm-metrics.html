@@ -17,9 +17,15 @@
         <button type="button" class="btn bb-nav btn-primary" data-target="next">Next</button>
       </div>
       <script>
+        var theMetric = barbellBro.getSetting('metric');
+        //Save the settings
+        barbellBro.setSetting('activeWeightSet', theMetric == 'lbs' ? 0 : 1);
+        barbellBro.saveSettings();
+        init({modal: false});
+
         $('#confirmMetricChoice').html( barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).type );
 
-        var confirmWeightList = '<span class="weightSetNameMsg">' + (barbellBro.getSetting('metric') == 'lbs' ? barbellBro.settings.weightSets[0].name : barbellBro.settings.weightSets[1].name) + '</span>';
+        var confirmWeightList = '<span class="weightSetNameMsg">' + (theMetric == 'lbs' ? barbellBro.settings.weightSets[0].name : barbellBro.settings.weightSets[1].name) + '</span>';
 
         for(var i = 0; i < barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).weights.length; i++){
           if(i < barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet')).weights.length - 1){
@@ -29,7 +35,7 @@
           }
         }
 
-        confirmWeightList += '<span class="metricMsg">Weights in ' + (barbellBro.getSetting('metric') == 'lbs'  ? 'Lbs.' : 'Kgs.') + '</span>';
+        confirmWeightList += '<span class="metricMsg">Weights in ' + (theMetric == 'lbs'  ? 'Lbs.' : 'Kgs.') + '</span>';
 
         $('#confirmWeightList').html(confirmWeightList);
 
