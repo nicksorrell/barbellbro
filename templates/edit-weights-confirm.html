@@ -9,11 +9,11 @@
         <p>Your custom weight set has been saved as:</p>
         <p id="confirmWeightSet"></p>
         <p>This set will now be active. You can change the active set from the Settings menu.</p>
-        <p>If you would like to take a UI tour, select the <b class="text-primary">Save</b> button. Otherwise select the <b>Exit</b> button to begin using the app.</p>
+        <p>If you would like to take a UI tour, select the <b class="text-primary">Next</b> button. Otherwise select the <b>Exit</b> button to begin using the app.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn bb-nav btn-default" data-dismiss="modal">Exit</button>
-        <button type="button" class="btn bb-nav btn-primary" data-target="next">Save</button>
+        <button type="button" class="btn bb-nav btn-primary" data-target="next">Next</button>
       </div>
       <script>
         var customWeights = barbellBro.tempData.customWeights;
@@ -44,6 +44,7 @@
 
         //Save the settings
         barbellBro.saveSettings();
+        init({modal: false});
 
         $('#confirmWeightSet').html(weightSetMsg);
 
