@@ -3,23 +3,20 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Setup</h4>
+        <h4 class="modal-title">Help</h4>
       </div>
       <div class="modal-body">
-        <p>Welcome! Let's take a moment to configure the app for your own use. It will only take a minute.</p>
-        <p>You can tell us which metric (lbs/kgs) you prefer, what weight of plates you have available, and configure your own set of plates if the default doesn't work for you.</p>
-        <p>Select <b class="text-primary">Quick Setup</b> to begin! Otherwise, select <b>Later</b>. You can always configure the app from the Settings menu.</p>
+        <button class="btn bb-nav btn-default" data-target="about">About</button>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn bb-nav btn-default pull-left" data-dismiss="modal">Later</button>
-        <button type="button" class="btn bb-nav btn-primary" data-target="next">Quick Setup</button>
+        <button type="button" class="btn bb-nav btn-default" data-dismiss="modal">Exit</button>
       </div>
       <script>
         //barbellBro.setSetting('firstUse', false);
         //barbellBro.saveSettings();
 
         var navTargets = {
-          'next': 'setup-metrics'
+          'about': 'help'
         }
 
         $('.btn.bb-nav').on('click', function(){

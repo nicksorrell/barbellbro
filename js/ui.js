@@ -189,6 +189,11 @@ $(function() {
     });
   }
 
+  /* Set a flag  the on win to make sure the modal functionality isn't
+   * broken by accidental multi-taps.
+   */
+  window.modalLoading = modalLoading = false;
+  
   /*****
   * FUNCTION: showModal
   * ---
@@ -203,6 +208,8 @@ $(function() {
   * Bootstrap modal markup to appear correctly as a modal.
   *****/
   window.showModal = function(target){
+    if(modalLoading) return;
+    modalLoading = true;
     var urlString = 'templates/' + target + '.html';
 
     barbellBro.log("Attempting to load template: " + urlString);
@@ -210,6 +217,7 @@ $(function() {
     $.ajax({
       url: urlString
     }).done(function(data){
+      modalLoading = false;
       $('#modalContainer').html('');
       $('#modalContainer').append(data);
       $('#modal').modal({ keyboard: false, backdrop: 'static' });
@@ -281,7 +289,7 @@ $(function() {
       }
     });
 
-    // Clear the input when it's selected (for ease of use on mobile)
+    // Clear the input when it's selected
     $('input').on('click', function(){
       $(this).val("");
     });
@@ -291,6 +299,13 @@ $(function() {
       updateDisplay( Number( $(this).val() ) );
     });
 
+    $('#settingsBtn').on('click', function(){
+      showModal('settings');
+    });
+
+    $('#helpBtn').on('click', function(){
+      showModal('help');
+    });
 
   }
 
