@@ -6,7 +6,8 @@
         <h4 class="modal-title">Settings</h4>
       </div>
       <div class="modal-body">
-        <button class="btn bb-nav btn-default" data-target="weightSets">Preferences</button>
+        <h4>Weights</h4>
+        <button class="btn bb-nav btn-default" data-target="preferences">Preferences</button>
         <button class="btn bb-nav btn-default" data-target="weightSets">Weight Sets</button>
       </div>
       <div class="modal-footer">
@@ -17,6 +18,7 @@
         //barbellBro.saveSettings();
 
         var navTargets = {
+          'preferences': 'settings',
           'weightSets': 'settings'
         }
 
