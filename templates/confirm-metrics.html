@@ -18,7 +18,8 @@
       </div>
       <script>
         var theMetric = barbellBro.getSetting('metric');
-        //Save the settings
+
+        //Save the settings and reload the UI
         barbellBro.setSetting('activeWeightSet', theMetric == 'lbs' ? 0 : 1);
         barbellBro.saveSettings();
         init({modal: false});
