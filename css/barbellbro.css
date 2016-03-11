@@ -188,3 +188,7 @@ input.main {
   font-weight: normal;
   margin-bottom: 0.25em;
 }
+
+button.spaced {
+  margin-right: 5px;
+}

@@ -3,29 +3,23 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Settings: Change Set</h4>
+        <h4 class="modal-title">Settings: Edit a Custom Set</h4>
       </div>
       <div class="modal-body">
-        <h4>Active Set</h4>
-        <p id="activeSet" style="color: #0079B5"></p>
-        <hr>
-        <h4>Other Sets</h4>
-        <p>Select a set to make active:</p>
-        <p id="otherSets"></p>
+        <h4>Custom Weight Sets</h4>
+        <p>Your custom sets will appear here, if they are set up. Select a set to edit it.</p>
+        <p id="setList"></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn bb-nav btn-default" data-target="bbData">Back</button>
       </div>
       <script>
         function setActiveSetUI(){
-          var theActiveSet = barbellBro.getWeightSet(barbellBro.getSetting('activeWeightSet'));
-          $('#activeSet').html( "<b>" + theActiveSet.name + "</b> <i>(" + theActiveSet.weights[0] + ", " + theActiveSet.weights[1] + ", " + theActiveSet.weights[2] +"...)</i>" );
-
-          $('#otherSets').html('');
+          $('#setList').html('');
           for(var i = 0, j = barbellBro.settings.weightSets.length; i < j; i++) {
-            if(i != barbellBro.getSetting('activeWeightSet') && barbellBro.getWeightSet(i).weights.length >= 3) {
+            if(i > 1 && barbellBro.getWeightSet(i).weights.length >= 3) {
               addSetBtn(i);
-            }
+          }
           }
         }
 
@@ -35,12 +29,9 @@
           setBtn.html(barbellBro.settings.weightSets[i].name);
           setBtn.data("setNum", i)
           setBtn.on('click', function(){
-            barbellBro.setSetting('activeWeightSet', $(this).data('setNum'));
-            barbellBro.saveSettings();
-            init({modal: false});
-            setActiveSetUI();
+
           });
-          $('#otherSets').append(setBtn);
+          $('#setList').append(setBtn);
         }
 
         setActiveSetUI();
