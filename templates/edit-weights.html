@@ -12,11 +12,13 @@
       <div class="modal-footer">
         <button type="button" class="btn bb-nav btn-default pull-left" data-dismiss="modal">Exit</button>
         <button type="button" class="btn bb-nav btn-default" data-target="back">Back</button>
-        <button type="button" class="btn bb-nav btn-primary" data-target="next">Next</button>
+        <button type="button" class="btn bb-nav btn-primary" data-target="next" disabled>Next</button>
       </div>
       <script>
         //TODO: disable next button until a minimum (3?) num of weights is selected
         var customWeights = [];
+
+        barbellBro.tempData.numWeightsSelected = 0;
 
         if(barbellBro.getSetting('metric') == 'lbs') {
           customWeights = [55, 50, 45, 40, 35, 30, 25, 20, 15, 10, 5, 2.5, 1, 0.5, 0.25];
@@ -37,16 +39,19 @@
           customWeight.addClass('customWeight btn btn-default');
           customWeight.data('weight', weight);
 
-          barbellBro.tempData.numWeightsSelected = 0;
-
           customWeight.on('click', function(){
-            if(!selectedLimitReached()){
-              $(this).addClass('selected');
-              barbellBro.tempData.numWeightsSelected++;
-            } else {
-              if($(this).hasClass('selected')) {
+            if(selectedLimitReached()){
+              if($(this).hasClass('selected')){
                 $(this).removeClass('selected');
                 barbellBro.tempData.numWeightsSelected--;
+              }
+            } else {
+              if($(this).hasClass('selected')){
+                $(this).removeClass('selected');
+                barbellBro.tempData.numWeightsSelected--;
+              } else {
+                $(this).addClass('selected');
+                barbellBro.tempData.numWeightsSelected++;
               }
             }
           });
