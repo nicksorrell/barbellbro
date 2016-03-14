@@ -29,7 +29,11 @@
           setBtn.html(barbellBro.settings.weightSets[i].name);
           setBtn.data("setNum", i)
           setBtn.on('click', function(){
-
+            $('#modal').modal('hide');
+            $('#modal').on('hidden.bs.modal', function(e){
+              showModal('settings-edit-set-weights');
+            });
+            barbellBro.tempData.editedSet = setBtn.data("setNum");
           });
           $('#setList').append(setBtn);
         }

@@ -1,0 +1,57 @@
+<div id="modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Settings: Edit a Custom Set</h4>
+      </div>
+      <div class="modal-body">
+        <p>Changes saved to the following set:</p>
+        <p id="confirmWeightSet"></p>
+        <p>Remember, you can change the active set from the Settings menu.</p>
+        <p>Select the <b class="text-primary">Next</b> button to continue.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn bb-nav btn-default pull-left" data-dismiss="modal">Exit</button>
+        <button type="button" class="btn bb-nav btn-primary" data-target="next">Next</button>
+      </div>
+      <script>
+        var editedSet = barbellBro.getWeightSet( barbellBro.tempData.editedSet );
+
+        var customWeights = barbellBro.tempData.customWeights;
+        var tempWeightStatus = [];
+        var weightSetMsg = "";
+
+        for(var i = 0, j = customWeights.length; i < j; i++) {
+          tempWeightStatus.push(1);
+        }
+
+        barbellBro.saveCustomWeightSet(editedSet, { weights: customWeights, weightStatus: tempWeightStatus });
+
+        weightSetMsg = editedSet.name;
+
+        //Save the settings
+        barbellBro.saveSettings();
+
+        $('#confirmWeightSet').html(weightSetMsg);
+
+        var navTargets = {
+          'next': 'settings'
+        }
+
+        $('.btn.bb-nav').on('click', function(){
+          var targetModal = navTargets[$(this).data('target')];
+
+          if(targetModal == undefined) {
+            return;
+          }
+
+          $('#modal').modal('hide');
+          $('#modal').on('hidden.bs.modal', function(e){
+            showModal(targetModal);
+          });
+        });
+      </script>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
