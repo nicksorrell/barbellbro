@@ -18,20 +18,20 @@
       <script>
         var editedSet = barbellBro.getWeightSet( barbellBro.tempData.editedSet );
 
-        var customWeights = barbellBro.tempData.customWeights;
         var tempWeightStatus = [];
         var weightSetMsg = "";
 
-        for(var i = 0, j = customWeights.length; i < j; i++) {
+        for(var i = 0, j = barbellBro.tempData.customWeights.length; i < j; i++) {
           tempWeightStatus.push(1);
         }
 
-        barbellBro.saveCustomWeightSet(editedSet, { weights: customWeights, weightStatus: tempWeightStatus });
+        barbellBro.saveCustomWeightSet(barbellBro.tempData.editedSet, { weights: barbellBro.tempData.customWeights, weightStatus: tempWeightStatus });
 
         weightSetMsg = editedSet.name;
 
         //Save the settings
         barbellBro.saveSettings();
+        init({modal: false});
 
         $('#confirmWeightSet').html(weightSetMsg);
 
