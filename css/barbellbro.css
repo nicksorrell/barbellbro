@@ -192,3 +192,8 @@ input.main {
 button.spaced {
   margin-right: 5px;
 }
+
+img.ui-tour {
+  max-width: 100%;
+  border-radius: 5px;
+}
