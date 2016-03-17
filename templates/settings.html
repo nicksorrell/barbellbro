@@ -6,6 +6,8 @@
         <h4 class="modal-title">Settings</h4>
       </div>
       <div class="modal-body">
+        <h4>General</h4>
+        <button class="btn bb-nav btn-default" data-target="quickSetup">Quick Setup</button>
         <h4>Weights</h4>
         <button class="btn bb-nav btn-default" data-target="changeActiveSet">Change Active Set</button>
         <button class="btn bb-nav btn-default" data-target="editWeightSet">Edit Custom Sets</button>
@@ -17,9 +19,10 @@
       </div>
       <script>
         var navTargets = {
+          'quickSetup': 'first-use',
           'changeActiveSet': 'settings-change-set',
           'editWeightSet': 'settings-edit-set',
-          'bbData': 'settings',
+          'bbData': 'settings-clear-data',
         }
 
         $('.btn.bb-nav').on('click', function(){
