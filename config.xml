@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns     = "http://www.w3.org/ns/widgets"
+        xmlns:gap     = "http://phonegap.com/ns/1.0"
+        xmlns:android = "http://schemas.android.com/apk/res/android"
+        id            = "com.nicksorrell.barbellbro"
+        version       = "0.0.1" >
+
+    <name>Barbell Bro</name>
+
+    <description>
+        A simple app for helping calculate barbell plate loads.
+    </description>
+
+    <author href="http://nicksorrell.com" email="nicksorrell@gmail.com">
+        Nick Sorrell
+    </author>
+
+    <gap:platform name="android" />
+
+    <preference name="permissions" value="none"/>
+    <preference name="android-installLocation" value="auto"/>
+    <preference name="orientation" value="portrait" />
+    <preference name="fullscreen" value="true" />
+    <preference name="splash-screen-duration" value="3000"/>
+
+    <icon src="icon.png" />
+    <gap:splash src="splash.png" gap:platform="android"/>
+
+    <content src="index.html"/>
+
+</widget>
