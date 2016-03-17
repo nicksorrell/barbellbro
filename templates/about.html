@@ -1,0 +1,42 @@
+<div id="modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">About</h4>
+      </div>
+      <div class="modal-body">
+        <p><b>App:</b> Barbell Bro</p>
+        <p><b>Version:</b> 0.0.1</p>
+        <p><b>Author:</b> Nick Sorrell</p>
+        <hr>
+        <p>You're using Barbell Bro! I made this free app after realizing that sometimes you don't feel like doing math to
+          load up a barbell while at the gym, especially on pre-workout! I figure others can use a bro on their phone to help out too.</p>
+        <p>I hope you find Barbell Bro useful for spending more time lifting and less time number-crunching in front of the bar.</p>
+        <p>Thanks!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn bb-nav btn-primary pull-left" data-dismiss="modal">Exit</button>
+        <button type="button" class="btn bb-nav btn-default" data-target="back">Back</button>
+      </div>
+      <script>
+      var navTargets = {
+        'back': 'help'
+      }
+
+      $('.btn.bb-nav').on('click', function(){
+        var targetModal = navTargets[$(this).data('target')];
+
+        if(targetModal == undefined) {
+          return;
+        }
+
+        $('#modal').modal('hide');
+        $('#modal').on('hidden.bs.modal', function(e){
+          showModal(targetModal);
+        });
+      });
+      </script>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

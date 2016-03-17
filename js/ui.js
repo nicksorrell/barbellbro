@@ -55,7 +55,8 @@ $(function() {
         weightTd,
         weightTr,
         drawCount = 0,
-        weightSize = 0;
+        weightSize = 0,
+        _this = this;
 
     /*****
     * NOTE: Canvas operations begin below
@@ -83,31 +84,16 @@ $(function() {
     this.drawBar = function(){
       barImgObj.onload = function(){
         ctx.drawImage( barImgObj, 0, canvas.height/2 - 20, canvas.width * 0.95, 40 );
-        drawStopper();
+
+        stopperImgObj.onload = function(){
+          ctx.drawImage( stopperImgObj, 5, canvas.height / 2 - (80 / 2), 30, 80 );
+          drawWeights();
+        };
       };
     };
 
     /*****
-    * INNER FUNCTION: drawStopper
-    * ---
-    * Parameters:
-    * - none
-    *
-    * Returns:
-    * - undefined
-    *
-    * This function sets the 'onload' event for the bar stopper image which
-    * draws it on the canvas before calling the function to draw the weights.
-    *****/
-    this.drawStopper = function(){
-      stopperImgObj.onload = function(){
-        ctx.drawImage( stopperImgObj, 5, canvas.height / 2 - (80 / 2), 30, 80 );
-        drawWeights();
-      };
-    };
-
-    /*****
-    * INNER FUNCTION: drawStopper
+    * INNER FUNCTION: weightMaker
     * ---
     * Parameters:
     * - img (Image): the Image to draw on the canvas
@@ -193,7 +179,7 @@ $(function() {
    * broken by accidental multi-taps.
    */
   window.modalLoading = modalLoading = false;
-  
+
   /*****
   * FUNCTION: showModal
   * ---
