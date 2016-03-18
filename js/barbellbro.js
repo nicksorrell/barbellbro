@@ -11,7 +11,7 @@
 
 var barbellBro = {
   // Debug mode is used in the 'log' function to enable console logging.
-  debugMode: true,
+  debugMode: false,
 
   tempData: {},
 

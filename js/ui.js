@@ -232,7 +232,7 @@ $(function() {
     activeWeightSet = barbellBro.getWeightSet( barbellBro.getSetting( 'activeWeightSet' ) );
 
     // If this is the users's first time in, display the first use modal
-    if( barbellBro.getSetting( 'firstUse' ) === true  && settings.modal === true) {
+    if( barbellBro.getSetting( 'firstUse' ) == "true"  && settings.modal === true) {
       showModal('first-use');
     }
 
@@ -293,8 +293,25 @@ $(function() {
       showModal('help');
     });
 
+    // PhoneGap-specific listener for the Android back button
+    document.addEventListener("backbutton", backKeyDown, true);
+
   }
 
+  // PhoneGap-specific function to handle Android back button
+  function backKeyDown() {
+    var modalUp = false;
+  	modalUp = $('#modal').css('display') == 'block';
+    if(modalUp) {
+      $('#modal').modal('hide');
+    } else {
+      if(confirm("Quit Barbell Bro?")){
+  		navigator.app.exitApp();
+  		}
+    }
+}
+
+  // Set a global init method to refresh the UI
   window.init = function(settings){ init(settings); };
 
   // Call the init function to kick everything off!
