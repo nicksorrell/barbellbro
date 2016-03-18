@@ -61,13 +61,31 @@ $(function() {
     /*****
     * NOTE: Canvas operations begin below
     *****/
+
     // Define images and sources upfront to prevent loading issues
+    var barImgLoader = 0;
     barImgObj = new Image();
     barImgObj.src = 'img/bar.png';
+    barImgObj.onload = function(){
+      barImgLoader++;
+      drawBar();
+    };
     stopperImgObj = new Image();
     stopperImgObj.src = 'img/barstop.png';
+    stopperImgObj.onload = function(){
+      barImgLoader++;
+      drawBar();
+    };
     weightImgObj = new Image();
     weightImgObj.src = 'img/plate.png';
+
+    function drawBar(){
+      if(barImgLoader == 2) {
+        ctx.drawImage( barImgObj, 0, canvas.height/2 - 20, canvas.width * 0.95, 40 );
+        ctx.drawImage( stopperImgObj, 5, canvas.height / 2 - (80 / 2), 30, 80 );
+        drawWeights();
+      }
+    }
 
     /*****
     * INNER FUNCTION: drawBar
@@ -78,19 +96,14 @@ $(function() {
     * Returns:
     * - undefined
     *
-    * This function sets the 'onload' event for the weight bar image which
-    * draws it on the canvas before calling the function to draw the stopper.
+    * This function sets the 'onload' event for the weight bar image and then
+    * draws the rest of the canvas.
     *****/
-    this.drawBar = function(){
-      barImgObj.onload = function(){
-        ctx.drawImage( barImgObj, 0, canvas.height/2 - 20, canvas.width * 0.95, 40 );
-
-        stopperImgObj.onload = function(){
-          ctx.drawImage( stopperImgObj, 5, canvas.height / 2 - (80 / 2), 30, 80 );
-          drawWeights();
-        };
-      };
-    };
+    /*this.drawBar = function(){
+      ctx.drawImage( barImgObj, 0, canvas.height/2 - 20, canvas.width * 0.95, 40 );
+      ctx.drawImage( stopperImgObj, 5, canvas.height / 2 - (80 / 2), 30, 80 );
+      drawWeights();
+    };*/
 
     /*****
     * INNER FUNCTION: weightMaker
@@ -128,9 +141,6 @@ $(function() {
 
     // Clear the entire canvas so we can update it
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Start the drawing chain by drawing the bar on the canvas.
-    drawBar();
 
     /*****
     * NOTE: Canvas operations end above
@@ -239,7 +249,7 @@ $(function() {
     $('.metric').html( "Plates Per Side (" + (activeWeightSet.type == "US" ? "lb" : "kg") + ")" );
 
     //Set up UI with initial calc 0, then clear the input to show the PH text
-    updateDisplay(0);
+
     $('input[name="weightInput"]').val('');
 
     // Set the bump button values to the lowest weight in the set
@@ -295,6 +305,7 @@ $(function() {
 
     // PhoneGap-specific listener for the Android back button
     document.addEventListener("backbutton", backKeyDown, true);
+    updateDisplay(0);
 
   }
 
