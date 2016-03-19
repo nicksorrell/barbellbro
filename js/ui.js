@@ -293,6 +293,8 @@ $(function() {
     // Update the display with a calculation when a number is entered
     $('input[name="weightInput"]').on('keyup', function(){
       updateDisplay( Number( $(this).val() ) );
+      $('button.btn-warmup').removeClass('active');
+      $('button.btn-warmup').first().addClass('active')
     });
 
     $('#settingsBtn').on('click', function(){
@@ -317,7 +319,7 @@ $(function() {
       $('#modal').modal('hide');
     } else {
       if(confirm("Quit Barbell Bro?")){
-  		navigator.app.exitApp();
+  		    navigator.app.exitApp();
   		}
     }
 }
