@@ -278,6 +278,7 @@ $(function() {
     // Clear the input when it's selected
     $('input').on('click', function(){
       $(this).val("");
+	  StatusBar.hide();
     });
 
     // Update the display with a calculation when a number is entered

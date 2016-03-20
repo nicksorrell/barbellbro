@@ -16,6 +16,8 @@
     </author>
 
     <gap:platform name="android" />
+	
+	<plugin name="org.apache.cordova.statusbar" spec="0.1.4" source="pgb" />
 
     <preference name="permissions" value="none"/>
     <preference name="android-installLocation" value="auto"/>
