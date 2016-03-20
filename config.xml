@@ -20,7 +20,7 @@
     <preference name="permissions" value="none"/>
     <preference name="android-installLocation" value="auto"/>
     <preference name="orientation" value="portrait" />
-    <preference name="fullscreen" value="true" />
+    <preference name="fullscreen" value="false" />
     <preference name="splash-screen-duration" value="3000"/>
 
     <icon src="img/icon-ldpi.png" platform="android" qualifier="ldpi" />
