@@ -3,7 +3,7 @@
         xmlns:gap     = "http://phonegap.com/ns/1.0"
         xmlns:android = "http://schemas.android.com/apk/res/android"
         id            = "com.nicksorrell.barbellbro"
-        version       = "0.0.1" >
+        version       = "0.1.0" >
 
     <name>Barbell Bro</name>
 
@@ -21,19 +21,20 @@
     <preference name="android-installLocation" value="auto"/>
     <preference name="orientation" value="portrait" />
     <preference name="fullscreen" value="false" />
-    <preference name="splash-screen-duration" value="3000"/>
 
-    <icon src="img/icon-ldpi.png" platform="android" qualifier="ldpi" />
-  	<icon src="img/icon-mdpi.png" platform="android" qualifier="mdpi" />
-  	<icon src="img/icon-hdpi.png" platform="android" qualifier="hdpi" />
-  	<icon src="img/icon-xhdpi.png" platform="android" qualifier="xhdpi" />
-  	<icon src="img/icon-xxhdpi.png" platform="android" qualifier="xxhdpi" />
+    <icon src="img/icon-ldpi.png" gap:platform="android" gap:qualifier="ldpi" />
+  	<icon src="img/icon-mdpi.png" gap:platform="android" gap:qualifier="mdpi" />
+  	<icon src="img/icon-hdpi.png" gap:platform="android" gap:qualifier="hdpi" />
+  	<icon src="img/icon-xhdpi.png" gap:platform="android" gap:qualifier="xhdpi" />
+  	<icon src="img/icon-xxhdpi.png" gap:platform="android" gap:qualifier="xxhdpi" />
+    <icon src="icon.png" />
 
-    <splash src="img/splash-ldpi.png" platform="android" qualifier="ldpi" />
-  	<splash src="img/splash-mdpi.png" platform="android" qualifier="mdpi" />
-  	<splash src="img/splash-hdpi.png" platform="android" qualifier="hdpi" />
-  	<splash src="img/splash-xhdpi.png" platform="android" qualifier="xhdpi" />
-  	<splash src="img/splash-xxhdpi.png" platform="android" qualifier="xxhdpi" />
+    <gap:splash src="img/splash-ldpi.png" platform="android" gap:qualifier="ldpi" />
+  	<gap:splash src="img/splash-mdpi.png" platform="android" gap:qualifier="mdpi" />
+  	<gap:splash src="img/splash-hdpi.png" platform="android" gap:qualifier="hdpi" />
+  	<gap:splash src="img/splash-xhdpi.png" platform="android" gap:qualifier="xhdpi" />
+  	<gap:splash src="img/splash-xxhdpi.png" platform="android" gap:qualifier="xxhdpi" />
+    <gap:splash src="splash.png" />
 
     <access origin="http://nicksorrell.com" subdomains="true" />
 

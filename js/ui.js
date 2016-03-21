@@ -285,8 +285,8 @@ $(function() {
      * provided the number is 1000 or less, and the input is valid.
      */
     $('input[name="weightInput"]').on('keyup', function(e){
-      if(event.keyCode < 48 || event.keyCode > 57){
-        if(event.keyCode != 8){
+      if(event.keyCode < 7 || event.keyCode > 16){
+        if(event.keyCode != 67){
           e.preventDefault();
           return;
         }
