@@ -266,15 +266,6 @@ $(function() {
       updateDisplay( activeWeight += $(this).data( 'increment' ) );
     });
 
-    // Only allow numbers and backspace as input
-    $('input[name="weightInput"]').on('keydown', function(e){
-      //48, 57, 8
-      if(event.keyCode < 7 || event.keyCode > 16){
-        if(event.keyCode != 67){
-          e.preventDefault();
-        }
-      }
-    });
 
     // Clear the input when it's selected
     $('input').on('click', function(){
@@ -283,13 +274,20 @@ $(function() {
 
     /* Update the display with a calculation when a number is entered,
      * provided the number is 1000 or less, and the input is valid.
+     * Keep track of the last valid input to use in invalid cases.
      */
+    var lastValidInput = "0";
     $('input[name="weightInput"]').on('keyup', function(e){
-      if(event.keyCode < 7 || event.keyCode > 16){
-        if(event.keyCode != 67){
-          e.preventDefault();
-          return;
-        }
+      /* Test the input for anything other than a number and don't
+       * allow anything that's not 0 through 9 in the input
+       */
+      var numRegEx = /([^0-9])/g;
+
+      if(numRegEx.test( $('input[name="weightInput"]').val() ) === true) {
+        $('input[name="weightInput"]').val(lastValidInput);
+      } else {
+        // Replace the input value with the last valid value
+        lastValidInput = $('input[name="weightInput"]').val();
       }
 
       // Don't bother calculating past 1000
