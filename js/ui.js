@@ -281,7 +281,7 @@ $(function() {
       /* Test the input for anything other than a number and don't
        * allow anything that's not 0 through 9 in the input
        */
-      var numRegEx = /([^0-9])/g;
+      var numRegEx = new RegExp('([^0-9])', 'g');
 
       if(numRegEx.test( $('input[name="weightInput"]').val() ) === true) {
         $('input[name="weightInput"]').val(lastValidInput);
