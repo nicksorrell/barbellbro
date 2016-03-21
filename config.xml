@@ -27,14 +27,6 @@
   	<icon src="img/icon-hdpi.png" gap:platform="android" gap:qualifier="hdpi" />
   	<icon src="img/icon-xhdpi.png" gap:platform="android" gap:qualifier="xhdpi" />
   	<icon src="img/icon-xxhdpi.png" gap:platform="android" gap:qualifier="xxhdpi" />
-    <icon src="icon.png" />
-
-    <gap:splash src="img/splash-ldpi.png" platform="android" gap:qualifier="ldpi" />
-  	<gap:splash src="img/splash-mdpi.png" platform="android" gap:qualifier="mdpi" />
-  	<gap:splash src="img/splash-hdpi.png" platform="android" gap:qualifier="hdpi" />
-  	<gap:splash src="img/splash-xhdpi.png" platform="android" gap:qualifier="xhdpi" />
-  	<gap:splash src="img/splash-xxhdpi.png" platform="android" gap:qualifier="xxhdpi" />
-    <gap:splash src="splash.png" />
 
     <access origin="http://nicksorrell.com" subdomains="true" />
 

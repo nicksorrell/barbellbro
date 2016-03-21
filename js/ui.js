@@ -268,9 +268,9 @@ $(function() {
 
     // Only allow numbers and backspace as input
     $('input[name="weightInput"]').on('keydown', function(e){
-      console.log(event.keyCode);
-      if(event.keyCode < 48 || event.keyCode > 57){
-        if(event.keyCode != 8){
+      //48, 57, 8
+      if(event.keyCode < 7 || event.keyCode > 16){
+        if(event.keyCode != 67){
           e.preventDefault();
         }
       }
