@@ -24,11 +24,18 @@
     <preference name="splash-screen-duration" value="3000"/>
 
     <icon src="img/icon-ldpi.png" platform="android" qualifier="ldpi" />
-	<icon src="img/icon-mdpi.png" platform="android" qualifier="mdpi" />
-	<icon src="img/icon-hdpi.png" platform="android" qualifier="hdpi" />
-	<icon src="img/icon-xhdpi.png" platform="android" qualifier="xhdpi" />
-	<icon src="img/icon-xxhdpi.png" platform="android" qualifier="xxhdpi" />
-    <gap:splash src="splash.png" gap:platform="android"/>
+  	<icon src="img/icon-mdpi.png" platform="android" qualifier="mdpi" />
+  	<icon src="img/icon-hdpi.png" platform="android" qualifier="hdpi" />
+  	<icon src="img/icon-xhdpi.png" platform="android" qualifier="xhdpi" />
+  	<icon src="img/icon-xxhdpi.png" platform="android" qualifier="xxhdpi" />
+
+    <splash src="img/splash-ldpi.png" platform="android" qualifier="ldpi" />
+  	<splash src="img/splash-mdpi.png" platform="android" qualifier="mdpi" />
+  	<splash src="img/splash-hdpi.png" platform="android" qualifier="hdpi" />
+  	<splash src="img/splash-xhdpi.png" platform="android" qualifier="xhdpi" />
+  	<splash src="img/splash-xxhdpi.png" platform="android" qualifier="xxhdpi" />
+
+    <access origin="http://nicksorrell.com" subdomains="true" />
 
     <content src="index.html"/>
 

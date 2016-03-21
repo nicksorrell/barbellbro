@@ -266,8 +266,9 @@ $(function() {
       updateDisplay( activeWeight += $(this).data( 'increment' ) );
     });
 
-    // If an input for weight is not a number, ignore it.
+    // Only allow numbers and backspace as input
     $('input[name="weightInput"]').on('keydown', function(e){
+      console.log(event.keyCode);
       if(event.keyCode < 48 || event.keyCode > 57){
         if(event.keyCode != 8){
           e.preventDefault();
@@ -280,11 +281,27 @@ $(function() {
       $(this).val("");
     });
 
-    // Update the display with a calculation when a number is entered
-    $('input[name="weightInput"]').on('keyup', function(){
-      updateDisplay( Number( $(this).val() ) );
-      $('button.btn-warmup').removeClass('active');
-      $('button.btn-warmup').first().addClass('active')
+    /* Update the display with a calculation when a number is entered,
+     * provided the number is 1000 or less, and the input is valid.
+     */
+    $('input[name="weightInput"]').on('keyup', function(e){
+      if(event.keyCode < 48 || event.keyCode > 57){
+        if(event.keyCode != 8){
+          e.preventDefault();
+          return;
+        }
+      }
+
+      // Don't bother calculating past 1000
+      if( Number( $(this).val() ) <= 1000 ) {
+        updateDisplay( Number( $(this).val() ) );
+        $('button.btn-warmup').removeClass('active');
+        $('button.btn-warmup').first().addClass('active');
+      } else {
+        updateDisplay( 1000 );
+        $('button.btn-warmup').removeClass('active');
+        $('button.btn-warmup').first().addClass('active');
+      }
     });
 
     $('#settingsBtn').on('click', function(){

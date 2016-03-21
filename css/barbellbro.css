@@ -140,6 +140,11 @@ input.main {
   text-transform: uppercase;
 }
 
+.header h1 span {
+  text-transform: none;
+  font-size: 0.75em;
+}
+
 .footer {
   margin-top: 2em;
   border-bottom: none;
