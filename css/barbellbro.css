@@ -207,3 +207,7 @@ img.ui-tour {
   max-width: 100%;
   border-radius: 5px;
 }
+
+.modal-title {
+  color: #888;
+}

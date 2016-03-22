@@ -6,8 +6,7 @@
         <h4 class="modal-title">Settings: Edit a Custom Set</h4>
       </div>
       <div class="modal-body">
-        <h4>Custom Weight Sets</h4>
-        <p>Here are the available custom sets. Select a set to edit it.</p>
+        <p>Here are the the available custom sets. Select a set to edit it.</p>
         <p id="setList"></p>
       </div>
       <div class="modal-footer">
@@ -16,10 +15,8 @@
       <script>
         function setActiveSetUI(){
           $('#setList').html('');
-          for(var i = 0, j = barbellBro.settings.weightSets.length; i < j; i++) {
-            if(i > 1) {
-              addSetBtn(i);
-          }
+          for(var i = 2, j = barbellBro.settings.weightSets.length; i < j; i++) {
+            addSetBtn(i);
           }
         }
 

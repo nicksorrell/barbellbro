@@ -11,11 +11,12 @@
         <button class="btn bb-nav btn-danger" data-target="bbData">Clear Data</button>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn bb-nav btn-default" data-dismiss="modal">Exit</button>
+        <button type="button" class="btn bb-nav btn-default" data-target="back">Back</button>
       </div>
       <script>
         var navTargets = {
-          'bbData': 'settings-clear-data-2',
+          'back': 'settings',
+          'bbData': 'settings-clear-data-2'
         }
 
         $('.btn.bb-nav').on('click', function(){

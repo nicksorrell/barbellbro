@@ -6,7 +6,8 @@
         <h4 class="modal-title">Settings: Edit a Custom Set</h4>
       </div>
       <div class="modal-body">
-        <p>Let's customize that weight set. Select 3 to 10 available weight plates and select <b>Next</b> to save the set.</p>
+        <p id="customSetName"></p>
+        <p>Select 3 to 10 available weight plates and select <b>Next</b> to save the set.</p>
         <div id="customWeights"></div>
       </div>
       <div class="modal-footer">
@@ -20,6 +21,8 @@
         var editedSet = barbellBro.getWeightSet( barbellBro.tempData.editedSet );
         barbellBro.log("Editing set: " + editedSet.name);
         barbellBro.tempData.numWeightsSelected = 0;
+
+        $('#customSetName').html('Now editing: <b>' + editedSet.name + '</b>');
 
         if(editedSet.type == 'US') {
           customWeights = [55, 50, 45, 40, 35, 30, 25, 20, 15, 10, 5, 2.5, 1, 0.5, 0.25];
