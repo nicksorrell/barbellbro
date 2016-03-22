@@ -10,16 +10,20 @@
         <img src="./img/usage.png" class="ui-tour">
         <p>It's that easy. Please take a minute to configure Barbell Bro for your own use. It will only take about <u>55 seconds</u>.</p>
         <p>Select <b class="text-primary">Quick Setup</b> to begin! You can run this Quick Setup from the Settings menu later too.</p>
+        <p><input type="checkbox" id="firstuse"><label for="firstuse"><span class="check-label">Don't show this screen on startup again</span></label></p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn bb-nav btn-default pull-left" data-dismiss="modal">Later</button>
+        <button type="button" class="btn bb-nav btn-default pull-left" data-target="later">Later</button>
         <button type="button" class="btn bb-nav btn-primary" data-target="next">Quick Setup</button>
       </div>
       <script>
-        barbellBro.setSetting('firstUse', false);
-        barbellBro.saveSettings();
+        $('#firstuse').on('click', function(){
+          barbellBro.setSetting('firstUse', document.getElementById('firstuse').checked ? false : true);
+          barbellBro.saveSettings();
+        })
 
         var navTargets = {
+          'later': 'first-use-confirm',
           'next': 'setup-metrics'
         }
 

@@ -211,3 +211,8 @@ img.ui-tour {
 .modal-title {
   color: #888;
 }
+
+.check-label {
+  font-size: 0.8em;
+  margin-left: 0.25em;
+}
