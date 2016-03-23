@@ -1,0 +1,37 @@
+<div id="modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Basic Usage</h4>
+      </div>
+      <div class="modal-body">
+        <p><b>Input:</b> Tap the  input field to enter a weight. The result includes the bar weight.</p>
+        <p><b>Bumping:</b> Bump your weight up and down a pair of the smallest plate with the buttons below the input.</p>
+        <p><b>Plate Toggle:</b> Toggle plates on or off by selecting them in the weight table.</p>
+        <p><b>Warmups:</b> Use the warmup buttons to temporarily calculate a lower percentage of your selected weight.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn bb-nav btn-default" data-target="back">Back</button>
+      </div>
+      <script>
+      var navTargets = {
+        'back': 'help'
+      }
+
+      $('.btn.bb-nav').on('click', function(){
+        var targetModal = navTargets[$(this).data('target')];
+
+        if(targetModal == undefined) {
+          return;
+        }
+
+        $('#modal').modal('hide');
+        $('#modal').on('hidden.bs.modal', function(e){
+          showModal(targetModal);
+        });
+      });
+      </script>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

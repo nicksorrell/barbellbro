@@ -50,7 +50,7 @@ body {
   width: 100%;
   border: 1px solid #ccc;
   margin: 1em 0;
-  margin-bottom: 2em;
+  margin-bottom: 0.25em;
   table-layout: fixed;
   font-size:0.75em;
 }
@@ -118,6 +118,15 @@ input.main {
   font-weight: bold;
   font-size: 1.25em;
   width: 100%;
+  margin-bottom: 0.5em;
+}
+
+input.main::before{
+  display: block;
+  content: "(includes bar)";
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .header, .footer {
@@ -224,4 +233,11 @@ img.ui-tour {
 
 .top-space {
   margin-top: 1em;
+}
+
+.table-note {
+  margin-top: 0;
+  margin-bottom: 1em;
+  font-size: 0.75em;
+  color: #4B7390;
 }

@@ -14,7 +14,7 @@
  *****/
 
  /**
-  * TODO: Make all template scripts be part of one object in UI.js, with one method for each page's JS
+  * TODO: Make all template scripts be part of one object in UI.js, with one method for each page's JS?
   * TODO: Make all templates be part of one JS object for efficiency?
   */
 
@@ -236,11 +236,8 @@ $(function() {
       showModal('first-use');
     }
 
-    $('.metric').html( "Plates Per Side (" + (activeWeightSet.type == "US" ? "lb" : "kg") + ")" );
-
-    //Set up UI with initial calc 0, then clear the input to show the PH text
-
-    $('input[name="weightInput"]').val('');
+    $('.metric').html( "Plates Per Side (" + (activeWeightSet.type == "US" ? "lbs" : "kgs") + ")" );
+    $('.table-note .unit-based').html( activeWeightSet.type == "US" ? "45 lbs" : "20 kgs" );
 
     // Set the bump button values to the lowest weight in the set
     $('#bumpWeight').html( activeWeightSet.weights[ activeWeightSet.weights.length - 1 ] );
@@ -311,8 +308,14 @@ $(function() {
     });
 
     // PhoneGap-specific listener for the Android back button
-    document.addEventListener("backbutton", backKeyDown, true);
+    document.addEventListener("deviceready", function(){
+  		document.addEventListener("backbutton", backKeyDown, false);
+  		document.addEventListener("searchbutton", menuKeyDown, false);
+  	}, false);
+
+    //Set up UI with initial calc 0, then clear the input to show the PH text
     updateDisplay(0);
+    $('input[name="weightInput"]').val('');
 
   }
 
