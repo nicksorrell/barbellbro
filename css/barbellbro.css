@@ -216,3 +216,12 @@ img.ui-tour {
   font-size: 0.8em;
   margin-left: 0.25em;
 }
+
+.check-label.settings {
+  font-size: 1em;
+  font-weight: normal;
+}
+
+.top-space {
+  margin-top: 1em;
+}

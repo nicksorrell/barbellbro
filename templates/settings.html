@@ -8,16 +8,26 @@
       <div class="modal-body">
         <h4>General</h4>
         <button class="btn bb-nav btn-default" data-target="quickSetup">Quick Setup</button>
+        <hr>
         <h4>Weights</h4>
         <button class="btn bb-nav btn-default" data-target="changeActiveSet">Active Set</button>
         <button class="btn bb-nav btn-default" data-target="editWeightSet">Edit Custom Set</button>
+        <hr>
         <h4>Data</h4>
         <button class="btn bb-nav btn-default" data-target="bbData">Clear Data</button>
+        <p class="top-space"><input type="checkbox" id="firstuse"><label for="firstuse"><span class="check-label settings">Show welcome screen on next launch</span></label></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn bb-nav btn-default" data-dismiss="modal">Exit</button>
       </div>
       <script>
+        document.getElementById('firstuse').checked = barbellBro.getSetting('firstUse') == "true" ? true : false;
+
+        $('#firstuse').on('click', function(){
+          barbellBro.setSetting('firstUse', document.getElementById('firstuse').checked ? true : false);
+          barbellBro.saveSettings();
+        });
+
         var navTargets = {
           'quickSetup': 'setup-metrics',
           'changeActiveSet': 'settings-change-set',
