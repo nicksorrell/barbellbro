@@ -310,7 +310,6 @@ $(function() {
     // PhoneGap-specific listener for the Android back button
     document.addEventListener("deviceready", function(){
   		document.addEventListener("backbutton", backKeyDown, false);
-  		document.addEventListener("searchbutton", menuKeyDown, false);
   	}, false);
 
     //Set up UI with initial calc 0, then clear the input to show the PH text
