@@ -20,7 +20,7 @@ var barbellBro = {
    */
   settings: {
     config: {
-        firstUse: true,
+        firstUse: "true",
         metric: 'lbs',
         activeWeightSet: 0,
         activeWeight: 0,
