@@ -233,3 +233,7 @@ img.ui-tour {
   font-size: 0.75em;
   color: #4B7390;
 }
+.modal-body {
+  font-size: 0.85em;
+  padding: 10px;
+}
