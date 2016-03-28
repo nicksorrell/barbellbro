@@ -3,23 +3,20 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Take the UI Tour?</h4>
+        <h4 class="modal-title">Change Log</h4>
       </div>
       <div class="modal-body">
-        <p>You're ready to begin using Barbell Bro!</p>
-        <p>Would you like to take a quick tour of the UI to learn how to calculate weights, toggle weight availability, and more?</p>
-        <p>The UI Tour is also available at any time from the <b>Help</b> menu.</p>
+        <p><b>Version 1.0.0</b></p>
+        <p>Initial release!</p>
+        <hr>
+        <p class="note">Future versions will have their major changes listed here.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn bb-nav btn-default pull-left" data-dismiss="modal">Skip</button>
-        <button type="button" class="btn bb-nav btn-primary" data-target="next">Take Tour</button>
+        <button type="button" class="btn bb-nav btn-default" data-target="back">Back</button>
       </div>
       <script>
-      barbellBro.setSetting('firstUse', false);
-      barbellBro.saveSettings();
-
       var navTargets = {
-        'next': 'ui-tour-1'
+        'back': 'help'
       }
 
       $('.btn.bb-nav').on('click', function(){
