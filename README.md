@@ -8,7 +8,7 @@ Built with [Bootstrap](http://getbootstrap.com/), [jQuery](http://jquery.com), a
 ## Installation
 Simply clone the repo:
 
-`.git clone https://github.com/nicksorrell/barbellbro.git`
+`git clone https://github.com/nicksorrell/barbellbro.git`
 
 ## How to Run
 
